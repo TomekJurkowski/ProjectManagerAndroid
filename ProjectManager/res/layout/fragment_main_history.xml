@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/margin_30"
+    android:paddingLeft="@dimen/margin_150"
+    android:paddingRight="@dimen/margin_150"
+    android:paddingTop="@dimen/margin_30"
+    android:background="@color/transparent"
+    tools:context=".MainActivity$InfoSectionFragment" >
+
+    <TextView
+        android:id="@+id/section_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:textColor="@color/yellow"
+        android:textSize="70sp" />
+
+</LinearLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/margin_30"
+    android:paddingLeft="@dimen/margin_150"
+    android:paddingRight="@dimen/margin_150"
+    android:paddingTop="@dimen/margin_30"
+    android:background="@color/transparent"
+    tools:context=".MainActivity$InfoSectionFragment"
+    android:orientation="vertical" >
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    
+    <TextView
+        android:id="@+id/section_label"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:textColor="@color/yellow"
+        android:textSize="70sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    
+    <TextView
+        android:id="@+id/section_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="fill_horizontal"
+        android:layout_weight="8"
+        android:gravity="center_horizontal"
+        android:linksClickable="true"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:autoLink="web|email"
+        android:textColorLink="@color/pale_yellow"
+		android:scrollbars = "vertical" />
+    
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+	    android:paddingBottom="@dimen/margin_0"
+	    android:paddingLeft="@dimen/margin_300"
+	    android:paddingRight="@dimen/margin_300"
+	    android:paddingTop="@dimen/margin_0" >
+   	    <Button
+	        android:text="@string/rate_app_button"
+	        android:id="@+id/button"
+	        android:background="@drawable/btn_yellow"
+	        style="@style/ButtonText"
+	        android:onClick="btnRateAppOnClick" />
+    </FrameLayout>
+    
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    
+</LinearLayout>

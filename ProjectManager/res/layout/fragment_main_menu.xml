@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/margin_30"
+    android:paddingLeft="@dimen/margin_150"
+    android:paddingRight="@dimen/margin_150"
+    android:paddingTop="@dimen/margin_30"
+    android:background="@color/transparent"
+    tools:context=".MainActivity$DescriptionSectionFragment"
+    android:orientation="vertical" >
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    
+    <TextView
+        android:id="@+id/section_label"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="3"
+        android:gravity="center_horizontal"
+        android:textColor="@color/yellow"
+        android:textSize="70sp" />
+    
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:text="@string/new_button"
+        android:id="@+id/button_new"
+        android:background="@drawable/btn_yellow"
+        style="@style/ButtonText" />
+    
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    
+    <Button
+        android:text="@string/clear_history_button"
+        android:id="@+id/button_clear_history"
+        android:background="@drawable/btn_yellow"
+        style="@style/ButtonText" />
+    
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    
+    <Button
+        android:text="@string/clear_current_button"
+        android:id="@+id/button_clear_current"
+        android:background="@drawable/btn_yellow"
+        style="@style/ButtonText" />
+    
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5" />
+    
+</LinearLayout>
