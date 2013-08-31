@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Space;
@@ -52,7 +53,6 @@ public class MainActivity extends FragmentActivity implements
 	private static final int HISTORY = 2;
 	private static final int DESCRIPTION = 3;
 	private static final int INFO = 4;
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -217,6 +217,11 @@ public class MainActivity extends FragmentActivity implements
 	    }
 	}
 
+    public void btnNewProjectOnClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), NewProjectActivity.class);
+        startActivity(intent);
+    }
+	
 	public static class MenuSectionFragment extends Fragment {
 		
 		public MenuSectionFragment() {
@@ -229,7 +234,7 @@ public class MainActivity extends FragmentActivity implements
 			
 			TextView titleTextView = (TextView) rootView.findViewById(R.id.section_label);
 			titleTextView.setText(R.string.menu_title);
-						
+									
 			return rootView;
 		}
 	}

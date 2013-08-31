@@ -12,19 +12,32 @@ public final class R {
         public static final int desription_content=0x7f060000;
         public static final int desription_content_guidelines=0x7f060001;
         public static final int info_content=0x7f060002;
+        public static final int phases=0x7f060003;
     }
     public static final class attr {
     }
     public static final class color {
+        public static final int black=0x7f070005;
         public static final int blue=0x7f070001;
+        /**  Colors. 
+         */
         public static final int pale_blue=0x7f070000;
         public static final int pale_yellow=0x7f070002;
-        public static final int transparent=0x7f070005;
+        public static final int semi_transparent=0x7f070007;
+        public static final int transparent=0x7f070006;
         public static final int white=0x7f070004;
         public static final int yellow=0x7f070003;
     }
     public static final class dimen {
+        /** 
+         Customize dimensions originally defined in res/values/dimens.xml (such as
+         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
+    
+         */
+        public static final int activity_horizontal_margin=0x7f040006;
         public static final int margin_0=0x7f040002;
+        public static final int margin_100=0x7f040005;
+        public static final int margin_15=0x7f040004;
         /**  Default screen margins, per the Android Design guidelines. 
          */
         public static final int margin_150=0x7f040000;
@@ -35,53 +48,78 @@ public final class R {
         public static final int background=0x7f020000;
         public static final int background_land=0x7f020001;
         public static final int btn_yellow=0x7f020002;
-        public static final int fractal=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int ic_yellow=0x7f020005;
-        public static final int stripes=0x7f020006;
-        public static final int wallpaper=0x7f020007;
+        public static final int edittext_round=0x7f020003;
+        public static final int fractal=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int ic_yellow=0x7f020006;
+        public static final int stripes=0x7f020007;
+        public static final int wallpaper=0x7f020008;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0008;
-        public static final int button=0x7f0a0004;
-        public static final int button_clear_current=0x7f0a0007;
-        public static final int button_clear_history=0x7f0a0006;
-        public static final int button_new=0x7f0a0005;
+        public static final int action_settings=0x7f0a0010;
+        public static final int button=0x7f0a000c;
+        public static final int button_clear_current=0x7f0a000e;
+        public static final int button_clear_history=0x7f0a000d;
+        public static final int button_new=0x7f0a0006;
+        public static final int framed_button=0x7f0a0008;
+        public static final int name_and_description=0x7f0a0007;
+        public static final int new_project_description=0x7f0a0002;
+        public static final int new_project_end=0x7f0a0004;
+        public static final int new_project_name=0x7f0a0001;
+        public static final int new_project_start=0x7f0a0003;
         public static final int pager=0x7f0a0000;
-        public static final int section_label=0x7f0a0001;
-        public static final int section_text=0x7f0a0002;
-        public static final int section_text_guidelines=0x7f0a0003;
+        public static final int section_label=0x7f0a0009;
+        public static final int section_text=0x7f0a000a;
+        public static final int section_text_guidelines=0x7f0a000b;
+        public static final int spinnerTarget=0x7f0a000f;
+        public static final int spinner_phase=0x7f0a0005;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int fragment_main_current_projects=0x7f030001;
-        public static final int fragment_main_description=0x7f030002;
-        public static final int fragment_main_dummy=0x7f030003;
-        public static final int fragment_main_history=0x7f030004;
-        public static final int fragment_main_info=0x7f030005;
-        public static final int fragment_main_menu=0x7f030006;
+        public static final int activity_new_project=0x7f030001;
+        public static final int fragment_main_current_projects=0x7f030002;
+        public static final int fragment_main_description=0x7f030003;
+        public static final int fragment_main_dummy=0x7f030004;
+        public static final int fragment_main_history=0x7f030005;
+        public static final int fragment_main_info=0x7f030006;
+        public static final int fragment_main_menu=0x7f030007;
+        public static final int spinner_layout=0x7f030008;
     }
     public static final class menu {
         public static final int main=0x7f090000;
+        public static final int new_project=0x7f090001;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
+        /**  Strings used as titles of Activities or Fragments. 
+         */
         public static final int app_name=0x7f050000;
-        public static final int clear_current_button=0x7f05000f;
-        public static final int clear_history_button=0x7f05000e;
-        public static final int current_projects_title=0x7f050008;
-        public static final int finished_projects_title=0x7f050009;
-        public static final int ic_yellow=0x7f05000c;
-        public static final int menu_title=0x7f050007;
-        public static final int new_button=0x7f05000d;
-        public static final int no_current_project=0x7f05000a;
-        public static final int no_finished_project=0x7f05000b;
-        public static final int rate_app_button=0x7f050010;
-        public static final int title_section1=0x7f050002;
-        public static final int title_section2=0x7f050003;
-        public static final int title_section3=0x7f050004;
-        public static final int title_section4=0x7f050005;
-        public static final int title_section5=0x7f050006;
+        public static final int clear_current_button=0x7f050010;
+        public static final int clear_history_button=0x7f05000f;
+        public static final int current_projects_title=0x7f050009;
+        public static final int finished_projects_title=0x7f05000a;
+        public static final int ic_yellow=0x7f05000d;
+        /**  Strings for activity com.example.projectmanager.MainActivity. 
+         */
+        public static final int menu_title=0x7f050008;
+        public static final int new_button=0x7f05000e;
+        public static final int new_project=0x7f050002;
+        public static final int new_project_description=0x7f050013;
+        public static final int new_project_end_date=0x7f050015;
+        /**  Strings for activity com.example.projectmanager.NewProjectActivity. 
+         */
+        public static final int new_project_name=0x7f050012;
+        public static final int new_project_phase=0x7f050016;
+        public static final int new_project_start_date=0x7f050014;
+        public static final int no_current_project=0x7f05000b;
+        public static final int no_finished_project=0x7f05000c;
+        public static final int phase_prompt=0x7f050017;
+        public static final int rate_app_button=0x7f050011;
+        public static final int title_section1=0x7f050003;
+        public static final int title_section2=0x7f050004;
+        public static final int title_section3=0x7f050005;
+        public static final int title_section4=0x7f050006;
+        public static final int title_section5=0x7f050007;
     }
     public static final class style {
         /** 

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Strings used as titles of Activities or Fragments. -->
     <string name="app_name">Project Manager</string>
     <string name="action_settings">Settings</string>
+    
+    <string name="new_project">New Project</string>
     
     <string name="title_section1">Menu</string>
     <string name="title_section2">Current Projects</string>
@@ -10,29 +13,29 @@
     <string name="title_section4">Description</string>
     <string name="title_section5">Info</string>
     
+    
+    <!-- Strings for activity com.example.projectmanager.MainActivity. -->
     <string name="menu_title">Main Menu</string>
     <string name="current_projects_title">Undergoing Projects</string>
     <string name="finished_projects_title">Finished Projects</string>
-    
     <string name="no_current_project">You don\'t have any unfinished projects. Go to the \'Menu\' panel to start
          a new project or to the \'History\' panel to see the completed ones.</string>
     <string name="no_finished_project">You have no projects in the \'History\' panel. Go to the \'Menu\'
          panel to start a new project or to the \'Current Projects\' panel to see/edit an existing one.</string>
-    
     <string name="ic_yellow">Yellow icon</string>
+    
     <string name="new_button">Create new Project</string>
     <string name="clear_history_button">Clear History</string>
     <string name="clear_current_button">Clear Current Projects</string>
     <string name="rate_app_button">Rate my App!</string>
-    
+
     <string-array name="desription_content">
         <item>The main objective of Project Manager App is to help you (and your team) manage your projects.</item>
         <item>It is designed for small and uncommercial enterprises.</item>
         <item>Intentionally, this app was created to help fellow programmers deal with the \'messy\' part of creating a software (that is the management part).</item>
         <item>However, it can obviously be used to help manage other kinds of projects that require proper planning and systematic supervision - it\'s completely up to you.</item>
         <item>Here are some guidelines, that will tell you how to use Project Manager, by describing all the important components:</item>
-    </string-array>        
-        
+    </string-array>
     <string-array name="desription_content_guidelines">
         <item>Guideline 1</item>
         <item>Guideline 2</item>
@@ -40,7 +43,7 @@
         <item>Guideline 4</item>
         <item>Guideline 5</item>
     </string-array>
-
+    
     <string-array name="info_content">
         <item>As you can see in Description section, I created this App mostly for programmers to help them work on small projects.</item>
         <item>As a matter of fact, the idea for this app (and the will to write it) came to me while working on some other project, that took me quite a lot of time and some of it could be spared, if I had a similar organizing app.</item>
@@ -52,12 +55,33 @@
         <item>&#8230; or you can find me on Linkedin: http://www.linkedin.com/pub/tomasz-jurkowski/79/79b/6b6 .</item>
         <item>I hope you will enjoy using Project Manager!</item>
     </string-array>
-    
+
+    <!-- Colors. -->
     <color name="pale_blue">#33b5e5</color>
     <color name="blue">#0099cc</color>
     <color name="pale_yellow">#ffbb33</color>
-	<color name="yellow">#ff8800</color>
-	<color name="white">#ffffff</color>
-	<color name="transparent">#000099cc</color>
-	
+    <color name="yellow">#ff8800</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#000099cc</color>
+    <color name="semi_transparent">#30ffffff</color>
+    
+    
+    <!-- Strings for activity com.example.projectmanager.NewProjectActivity. -->
+    <string name="new_project_name">Project Name:</string>
+    <string name="new_project_description">Description:</string>
+    <string name="new_project_start_date">Start Date:</string>
+    <string name="new_project_end_date">End Date:</string>
+    <string name="new_project_phase">Phase of the Project:</string>
+    
+    
+    <string name="phase_prompt">Choose the phase of your Project</string>
+    <string-array name="phases">
+        <item>To Do</item>
+        <item>In Progress</item>
+        <item>Suspended</item>
+        <item>Tested</item>
+        <item>Done</item>
+    </string-array>
+
 </resources>

@@ -42,7 +42,8 @@
 	        android:text="@string/new_button"
 	        android:id="@+id/button_new"
 	        android:background="@drawable/btn_yellow"
-	        style="@style/ButtonText" />
+	        style="@style/ButtonText"
+	        android:onClick="btnNewProjectOnClick" />
     </FrameLayout>
     
     <Space
@@ -59,6 +60,7 @@
 	    android:paddingTop="@dimen/margin_0"
 	    android:layout_gravity="center_horizontal"
 	    android:gravity="center_horizontal"
+	    android:baselineAligned="false"
 	    android:orientation="horizontal" >
 
         <FrameLayout
