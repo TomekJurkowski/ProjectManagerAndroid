@@ -1,16 +1,28 @@
 package com.example.projectmanager;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.res.Resources;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class NewProjectActivity extends Activity {
 	private Spinner phaseSpinner;
+	private DatePicker startDate;
+	private DatePicker endDate;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,10 +31,10 @@ public class NewProjectActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
+		startDate = (DatePicker) findViewById(R.id.new_project_start);
+		endDate = (DatePicker) findViewById(R.id.new_project_end);
+		
 		phaseSpinner = (Spinner) findViewById(R.id.spinner_phase);
-
-		Resources res = getResources();
-		String[] strArray = res.getStringArray(R.array.phases);
 		
 		// Creating adapter for spinner
         ArrayAdapter<CharSequence> dataAdapter = ArrayAdapter.createFromResource(
@@ -35,6 +47,73 @@ public class NewProjectActivity extends Activity {
         phaseSpinner.setAdapter(dataAdapter);
 	}
 
+	public void closeAndCreateProject () {
+		Toast.makeText(this, R.string.correct_dates, Toast.LENGTH_LONG).show();			
+        finish();
+	}
+	
+	/**
+	 * Function that verifies the data chosen by the user. It can either show a pop-up
+	 * window with an information that some data are incorrect or (if all the data are
+	 * proper) it will finish this activity and create the new project.
+	 */	
+	public void btnCreateNewProjectOnClick(View v) {
+	    Calendar cal = Calendar.getInstance();
+	    cal.set(Calendar.YEAR, startDate.getYear());
+	    cal.set(Calendar.MONTH, startDate.getMonth());
+	    cal.set(Calendar.DAY_OF_MONTH, startDate.getDayOfMonth());
+	    Date start = cal.getTime();
+	    
+	    cal.set(Calendar.YEAR, endDate.getYear());
+	    cal.set(Calendar.MONTH, endDate.getMonth());
+	    cal.set(Calendar.DAY_OF_MONTH, endDate.getDayOfMonth());
+	    Date end = cal.getTime();
+		
+		if (start.before(end)) {
+			closeAndCreateProject();
+		} else if (start.equals(end)) {
+			LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
+		    View popupView = layoutInflater.inflate(R.layout.equal_date_popup, null);  
+		    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+
+		    Button btnYes = (Button) popupView.findViewById(R.id.yes);
+	    	btnYes.setOnClickListener(new Button.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    			popupWindow.dismiss();
+	    			closeAndCreateProject();
+	    		}
+	    	});
+
+		    Button btnNo = (Button) popupView.findViewById(R.id.no);
+	    	btnNo.setOnClickListener(new Button.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    			popupWindow.dismiss();
+	    		}
+	    	});
+
+	    	popupWindow.setFocusable(true);
+	    	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+		} else {
+			LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
+		    View popupView = layoutInflater.inflate(R.layout.incorrect_date_popup, null);  
+		    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		             
+		    Button btnOk = (Button) popupView.findViewById(R.id.dismiss);
+	    	btnOk.setOnClickListener(new Button.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    			popupWindow.dismiss();
+	    		}
+	    	});
+
+	    	popupWindow.setFocusable(true);
+	    	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+		}
+
+	}
+	
 	/**
 	 * Set up the {@link android.app.ActionBar}.
 	 */

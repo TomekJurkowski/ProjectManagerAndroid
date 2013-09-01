@@ -140,12 +140,7 @@
 			android:id="@+id/new_project_end" />
 	</LinearLayout>
 
-    
-    
-    
-    
-    
-    <FrameLayout
+	<FrameLayout
         android:id="@+id/framed_button"
         android:layout_width="match_parent"
     	android:layout_height="wrap_content"
@@ -158,7 +153,8 @@
 	        android:text="@string/new_button"
 	        android:id="@+id/button_new"
 	        android:background="@drawable/btn_yellow"
-	        style="@style/ButtonText" />
+	        style="@style/ButtonText"
+	        android:onClick="btnCreateNewProjectOnClick" />
 	</FrameLayout>
     
     <LinearLayout

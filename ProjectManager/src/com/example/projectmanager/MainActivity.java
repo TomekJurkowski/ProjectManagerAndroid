@@ -217,7 +217,11 @@ public class MainActivity extends FragmentActivity implements
 	    }
 	}
 
-    public void btnNewProjectOnClick(View v) {
+	
+	/**
+	 * Function that starts the NewProjectActivity.
+	 */	
+	public void btnNewProjectOnClick(View v) {
         Intent intent = new Intent(getApplicationContext(), NewProjectActivity.class);
         startActivity(intent);
     }

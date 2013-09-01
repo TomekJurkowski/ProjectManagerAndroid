@@ -1,195 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".NewProjectActivity" >
+    tools:context=".NewProjectActivity"
+    android:orientation="vertical" >
     
-    <LinearLayout 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/semi_transparent" >
-
-        <Space
-	        android:layout_width="match_parent"
-	        android:layout_height="0dp"
-	        android:layout_weight="1" />
+    <Space
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1" />
                 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-	        android:layout_marginLeft="@dimen/margin_150"
-	        android:layout_marginTop="@dimen/margin_0"
-	        android:layout_marginBottom="@dimen/margin_0"
-	        android:layout_marginRight="@dimen/margin_150"
-            android:orientation="vertical" >
+	<LinearLayout
+		android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/margin_150"
+        android:layout_marginTop="@dimen/margin_0"
+        android:layout_marginBottom="@dimen/margin_0"
+        android:layout_marginRight="@dimen/margin_150"
+        android:orientation="vertical" >
 
-          	<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="left"
-		        android:gravity="center_horizontal"
-		        android:textColor="@color/white"
-	        	android:textSize="25sp"
-	 	        android:text="@string/new_project_name" />
+		<TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="left"
+	        android:gravity="center_horizontal"
+	        android:textColor="@color/white"
+        	android:textSize="25sp"
+ 	        android:text="@string/new_project_name" />
 		    
-		    <EditText
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center"
-		        android:gravity="center_horizontal"
-		        android:padding="@dimen/margin_15"
-		        android:inputType="text"
-		        android:singleLine="true"
-		        android:textColor="@color/pale_yellow"
-		        android:textColorHighlight="@color/blue"
-		        android:textSize="35sp"
-	      	    android:background="@drawable/edittext_round"
-		        android:id="@+id/new_project_name" />
-
-	    </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-	        android:layout_marginLeft="@dimen/margin_150"
-	        android:layout_marginTop="@dimen/margin_0"
-	        android:layout_marginBottom="@dimen/margin_0"
-	        android:layout_marginRight="@dimen/margin_150"
-            android:orientation="vertical" >
-        
-	   	    <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="left"
-		        android:gravity="center_horizontal"
-		        android:textColor="@color/white"
-	        	android:textSize="25sp"
-	        	android:text="@string/new_project_description" />
-	
-			<EditText 
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center"
-		        android:gravity="center_horizontal"
-		        android:padding="@dimen/margin_15"
-		        android:inputType="textMultiLine"
-		        android:singleLine="false"
-		        android:minLines="2"
-		        android:maxLines="3"
-		        android:textColor="@color/pale_yellow"
-		        android:textColorHighlight="@color/blue"
-		        android:textSize="25sp"
-		        android:background="@drawable/edittext_round"
-		        android:id="@+id/new_project_description" />
-	   	    
-	    </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="@dimen/margin_150"
-	        android:layout_marginTop="@dimen/margin_0"
-	        android:layout_marginBottom="@dimen/margin_0"
-	        android:layout_marginRight="@dimen/margin_150"
-            android:orientation="vertical" >
-
-            <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="left|center_vertical"
-		        android:textColor="@color/white"
-	        	android:textSize="25sp"
-	        	android:text="@string/new_project_start_date" />
-	    	
-	   	    <DatePicker
-	   	        android:layout_width="wrap_content"
-	   	        android:layout_height="wrap_content"
-		        android:layout_gravity="right"
-		        android:gravity="right"
-		        android:calendarViewShown="false"
-		        android:id="@+id/new_project_start" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="@dimen/margin_150"
-	        android:layout_marginTop="@dimen/margin_0"
-	        android:layout_marginBottom="@dimen/margin_0"
-	        android:layout_marginRight="@dimen/margin_150"
-            android:orientation="vertical" >
-            
-	   	    <TextView
-		        android:layout_width="wrap_content"
-	   	        android:layout_height="wrap_content"
-		        android:layout_gravity="left|center_vertical"
-		        android:textColor="@color/white"
-	        	android:textSize="25sp"
-	        	android:text="@string/new_project_end_date" />
-	   	    
-	   	    <DatePicker
-	   	        android:layout_width="wrap_content"
-	   	        android:layout_height="wrap_content"
-		        android:layout_gravity="right"
-		        android:gravity="right"
-		        android:calendarViewShown="false"
-		        android:id="@+id/new_project_end" />
-
-		</LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="@dimen/margin_150"
-	        android:layout_marginTop="@dimen/margin_0"
-	        android:layout_marginBottom="@dimen/margin_0"
-	        android:layout_marginRight="@dimen/margin_150"
-            android:orientation="vertical" >
-
-	   	    <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="left"
-		        android:gravity="center_horizontal"
-		        android:textColor="@color/white"
-	        	android:textSize="25sp"
-	        	android:text="@string/new_project_phase" />
-	   	    
-	   	    <Spinner
-	   	        android:layout_width="wrap_content"
-	   	        android:layout_height="wrap_content"
-	   	        android:layout_gravity="center"
-		        android:layout_marginTop="@dimen/margin_15"
-	   	        android:prompt="@string/phase_prompt"
-		        android:gravity="center_horizontal"
-		        android:id="@+id/spinner_phase" />
-
-   	    </LinearLayout>
-
-        <FrameLayout
+	    <EditText
 	        android:layout_width="match_parent"
-	    	android:layout_height="wrap_content"
-		    android:paddingBottom="@dimen/margin_0"
-		    android:paddingLeft="@dimen/margin_150"
-		    android:paddingRight="@dimen/margin_150"
-		    android:paddingTop="@dimen/margin_0" >
-	        <Button
-		        android:text="@string/new_button"
-		        android:id="@+id/button_new"
-		        android:background="@drawable/btn_yellow"
-		        style="@style/ButtonText" />
-        </FrameLayout>
-        
-        <Space
-	        android:layout_width="match_parent"
-	        android:layout_height="0dp"
-	        android:layout_weight="1" />
-   	    
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:gravity="center_horizontal"
+	        android:padding="@dimen/margin_15"
+	        android:inputType="text"
+	        android:singleLine="true"
+	        android:textColor="@color/pale_yellow"
+	        android:textColorHighlight="@color/blue"
+	        android:textSize="35sp"
+      	    android:background="@drawable/edittext_round"
+	        android:id="@+id/new_project_name" />
+
     </LinearLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:layout_marginLeft="@dimen/margin_150"
+        android:layout_marginTop="@dimen/margin_0"
+        android:layout_marginBottom="@dimen/margin_0"
+        android:layout_marginRight="@dimen/margin_150"
+        android:orientation="vertical" >
+        
+   	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="left"
+	        android:gravity="center_horizontal"
+	        android:textColor="@color/white"
+        	android:textSize="25sp"
+        	android:text="@string/new_project_description" />
+	
+		<EditText 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:gravity="center_horizontal"
+	        android:padding="@dimen/margin_15"
+	        android:inputType="textMultiLine"
+	        android:singleLine="false"
+	        android:minLines="2"
+	        android:maxLines="3"
+	        android:textColor="@color/pale_yellow"
+	        android:textColorHighlight="@color/blue"
+	        android:textSize="25sp"
+	        android:background="@drawable/edittext_round"
+	        android:id="@+id/new_project_description" />
+	   	    
+    </LinearLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:layout_marginLeft="@dimen/margin_150"
+		android:layout_marginTop="@dimen/margin_0"
+		android:layout_marginBottom="@dimen/margin_0"
+		android:layout_marginRight="@dimen/margin_150"
+		android:orientation="vertical" >
 
-</RelativeLayout>
+        <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="left|center_vertical"
+	        android:textColor="@color/white"
+        	android:textSize="25sp"
+        	android:text="@string/new_project_start_date" />
+	    	
+   	    <DatePicker
+   	        android:layout_width="wrap_content"
+   	        android:layout_height="wrap_content"
+	        android:layout_gravity="right"
+	        android:gravity="right"
+	        android:calendarViewShown="false"
+	        android:id="@+id/new_project_start" />
+
+    </LinearLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:layout_marginLeft="@dimen/margin_150"
+		android:layout_marginTop="@dimen/margin_0"
+		android:layout_marginBottom="@dimen/margin_0"
+		android:layout_marginRight="@dimen/margin_150"
+		android:orientation="vertical" >
+            
+   	    <TextView
+	        android:layout_width="wrap_content"
+   	        android:layout_height="wrap_content"
+	        android:layout_gravity="left|center_vertical"
+	        android:textColor="@color/white"
+        	android:textSize="25sp"
+        	android:text="@string/new_project_end_date" />
+	   	    
+   	    <DatePicker
+   	        android:layout_width="wrap_content"
+   	        android:layout_height="wrap_content"
+	        android:layout_gravity="right"
+	        android:gravity="right"
+	        android:calendarViewShown="false"
+	        android:id="@+id/new_project_end" />
+
+	</LinearLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:layout_marginLeft="@dimen/margin_150"
+		android:layout_marginTop="@dimen/margin_0"
+		android:layout_marginBottom="@dimen/margin_0"
+		android:layout_marginRight="@dimen/margin_150"
+		android:orientation="vertical" >
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="left"
+			android:gravity="center_horizontal"
+			android:textColor="@color/white"
+			android:textSize="25sp"
+			android:text="@string/new_project_phase" />
+ 
+		<Spinner
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_marginTop="@dimen/margin_15"
+			android:prompt="@string/phase_prompt"
+			android:gravity="center_horizontal"
+			android:id="@+id/spinner_phase" />
+
+	</LinearLayout>
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingBottom="@dimen/margin_0"
+		android:paddingLeft="@dimen/margin_150"
+		android:paddingRight="@dimen/margin_150"
+		android:paddingTop="@dimen/margin_0" >
+		<Button
+			android:text="@string/new_button"
+			android:id="@+id/button_new"
+			android:background="@drawable/btn_yellow"
+			style="@style/ButtonText"
+			android:onClick="btnCreateNewProjectOnClick" />
+	</FrameLayout>
+        
+	<Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+   	    
+</LinearLayout>
