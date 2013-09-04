@@ -6,23 +6,23 @@ package com.example.projectmanager.models;
  */
 public class Milestone {
     private long id;
-    private long projectId;
     private String name;
     private String description;
     private long start;
     private long end;
     private String phase;
- 
-    public Milestone(long id, long projectId, String name, String description,
-    		long start, long end, String phase) {
+    private long projectId;
+
+    public Milestone(long id, String name, String description,
+    		long start, long end, String phase, long projectId) {
     	
         this.id = id;
-        this.projectId = projectId;
         this.name = name;
         this.description = description;
         this.start = start;
         this.end = end;
         this.phase = phase;
+        this.projectId = projectId;
     }
  
     public long getId() {
@@ -33,14 +33,6 @@ public class Milestone {
         this.id = id;
     }
 
-    public long getProjectId() {
-        return projectId;
-    }
- 
-    public void setProjectId(long projectId) {
-        this.projectId = projectId;
-    }
-    
     public String getName() {
         return name;
     }
@@ -79,5 +71,13 @@ public class Milestone {
  
     public void setPhase(String phase) {
         this.phase = phase;
+    }
+    
+    public long getProjectId() {
+        return projectId;
+    }
+ 
+    public void setProjectId(long projectId) {
+        this.projectId = projectId;
     }
 }

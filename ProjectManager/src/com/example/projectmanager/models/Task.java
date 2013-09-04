@@ -6,29 +6,32 @@ package com.example.projectmanager.models;
  */
 public class Task {
     private long id;
-    private long milestoneId;
     private String name;
     private String description;
     private long start;
     private long end;
-    private int priority;
     private String phase;
+    private int priority;
     private int estimatedTime;
+    private long milestoneId;
     
     private static final int DEFAULT_PRIORITY = 50;
     
-    public Task(long id, long milestoneId, String name, String description,
-    		long start, long end, int priority, String phase, int estimatedTime) {
+    public Task(long id, String name, String description, long start, long end,
+    		String phase, int priority, int estimatedTime, long milestoneId) {
     	
         this.id = id;
-        this.milestoneId = milestoneId;
         this.name = name;
         this.description = description;
         this.start = start;
         this.end = end;
-        
         this.phase = phase;
+        
+        setPriority(priority);
+        
         this.estimatedTime = estimatedTime;
+        this.milestoneId = milestoneId;
+
     }
  
     public long getId() {
@@ -37,14 +40,6 @@ public class Task {
  
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getMilestoneId() {
-        return milestoneId;
-    }
- 
-    public void setMilestoneId(long milestoneId) {
-        this.milestoneId = milestoneId;
     }
     
     public String getName() {
@@ -78,6 +73,14 @@ public class Task {
     public void setEnd(long end) {
         this.end = end;
     }
+    
+    public String getPhase() {
+    	return phase;
+    }
+
+    public void setPhase(String phase) {
+    	this.phase = phase;
+    }
 
     public int getPriority() {
         return priority;
@@ -96,14 +99,6 @@ public class Task {
             this.priority = DEFAULT_PRIORITY;
     	}
     }
-        
-    public String getPhase() {
-        return phase;
-    }
- 
-    public void setPhase(String phase) {
-        this.phase = phase;
-    }
     
     public int getEstimatedTime() {
         return estimatedTime;
@@ -111,5 +106,13 @@ public class Task {
  
     public void setEstimatedTime(int estimatedTime) {
         this.estimatedTime = estimatedTime;
+    }
+
+    public long getMilestoneId() {
+        return milestoneId;
+    }
+ 
+    public void setMilestoneId(long milestoneId) {
+        this.milestoneId = milestoneId;
     }
 }

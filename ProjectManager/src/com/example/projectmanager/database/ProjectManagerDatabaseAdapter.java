@@ -336,5 +336,109 @@ public class ProjectManagerDatabaseAdapter {
         return db.delete(DB_TASK_TABLE, where, null) > 0;
     }
     
+    /**
+     * Function returning a Cursor. Its objective is to retrieve and deliver all
+     * projects from the database in the form of aforementioned Cursor object.
+     */
+    public Cursor getAllProjects() {
+        String[] columns = {KEY_ID, KEY_NAME, KEY_DESCRIPTION, KEY_START, KEY_END,
+        		KEY_PHASE, KEY_COMPLETED};
+        return db.query(DB_PROJECT_TABLE, columns, null, null, null, null, null);
+    }
+ 
+    /**
+     * Function returning a Project object. It looks in database for a project with the given id,
+     * and if there is such a project, then it is returned (in form of Project class instance).
+     * Otherwise null is returned.
+     */
+    public Project getProject(long id) {
+        String[] columns = {KEY_ID, KEY_NAME, KEY_DESCRIPTION, KEY_START, KEY_END,
+        		KEY_PHASE, KEY_COMPLETED};
+        String where = KEY_ID + "=" + id;
+        Cursor cursor = db.query(DB_PROJECT_TABLE, columns, where, null, null, null, null);
+        Project project = null;
+        if(cursor != null && cursor.moveToFirst()) {
+        	String name = cursor.getString(NAME_COLUMN);
+            String description = cursor.getString(DESCRIPTION_COLUMN);
+            long start = cursor.getLong(START_COLUMN);
+            long end = cursor.getLong(END_COLUMN);
+            String phase = cursor.getString(PHASE_COLUMN);
+            boolean completed = cursor.getInt(COMPLETED_COLUMN) > 0 ? true : false;
+            project = new Project(id, name, description, start, end, phase, completed);
+        }
+        return project;
+    }
     
+    /**
+     * Function returning a Cursor. Its objective is to retrieve and deliver all
+     * milestones from certain project (we have its id) from the database in the
+     * form of aforementioned Cursor object.
+     */
+    public Cursor getAllMilestonesFromProject(long projectId) {
+        String[] columns = {KEY_ID, KEY_NAME, KEY_DESCRIPTION, KEY_START, KEY_END,
+        		KEY_PHASE, KEY_PROJECT_ID};
+        String where = KEY_PROJECT_ID + "=" + projectId;        
+        return db.query(DB_MILESTONE_TABLE, columns, where, null, null, null, null);
+    }
+ 
+    /**
+     * Function returning a Milestone object. It looks in database for a milestone with the given id,
+     * and if there is such a milestone, then it is returned (in form of Milestone class instance).
+     * Otherwise null is returned.
+     */
+    public Milestone getMilestone(long id) {
+        String[] columns = {KEY_ID, KEY_NAME, KEY_DESCRIPTION, KEY_START, KEY_END,
+        		KEY_PHASE, KEY_PROJECT_ID};
+        String where = KEY_ID + "=" + id;
+        Cursor cursor = db.query(DB_MILESTONE_TABLE, columns, where, null, null, null, null);
+        Milestone milestone = null;
+        if(cursor != null && cursor.moveToFirst()) {
+        	String name = cursor.getString(NAME_COLUMN);
+            String description = cursor.getString(DESCRIPTION_COLUMN);
+            long start = cursor.getLong(START_COLUMN);
+            long end = cursor.getLong(END_COLUMN);
+            String phase = cursor.getString(PHASE_COLUMN);
+            long projectId = cursor.getLong(PROJECT_ID_COLUMN);
+            milestone = new Milestone(id, name, description, start, end, phase, projectId);
+        }
+        return milestone;
+    }
+    
+    /**
+     * Function returning a Cursor. Its objective is to retrieve and deliver all
+     * tasks from certain milestone (we have its id) from the database in the
+     * form of aforementioned Cursor object.
+     */
+    public Cursor getAllTasksFromMilestone(long milestoneId) {
+        String[] columns = {KEY_ID, KEY_NAME, KEY_DESCRIPTION, KEY_START, KEY_END,
+        		KEY_PHASE, KEY_PRIORITY, KEY_ESTIMATED_TIME, KEY_MILESTONE_ID};
+        String where = KEY_MILESTONE_ID + "=" + milestoneId;
+        return db.query(DB_TASK_TABLE, columns, where, null, null, null, null);
+    }
+ 
+    /**
+     * Function returning a Task object. It looks in database for a task with the given task,
+     * and if there is such a task, then it is returned (in form of Task class instance).
+     * Otherwise null is returned.
+     */
+    public Task getTask(long id) {
+        String[] columns = {KEY_ID, KEY_NAME, KEY_DESCRIPTION, KEY_START, KEY_END,
+        		KEY_PHASE, KEY_PRIORITY, KEY_ESTIMATED_TIME, KEY_MILESTONE_ID};
+        String where = KEY_ID + "=" + id;
+        Cursor cursor = db.query(DB_TASK_TABLE, columns, where, null, null, null, null);
+        Task task = null;
+        if(cursor != null && cursor.moveToFirst()) {
+        	String name = cursor.getString(NAME_COLUMN);
+            String description = cursor.getString(DESCRIPTION_COLUMN);
+            long start = cursor.getLong(START_COLUMN);
+            long end = cursor.getLong(END_COLUMN);
+            String phase = cursor.getString(PHASE_COLUMN);
+            int priority = cursor.getInt(PRIORITY_COLUMN);
+            int estimatedTime = cursor.getInt(ESTIMATED_TIME_COLUMN);
+        	long milestoneId = cursor.getLong(MILESTONE_ID_COLUMN);
+            task = new Task(id, name, description, start, end, phase, priority, estimatedTime,
+            		milestoneId);
+        }
+        return task;
+    }
 }

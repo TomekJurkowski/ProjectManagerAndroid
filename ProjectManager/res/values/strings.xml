@@ -38,9 +38,9 @@
     </string-array>
     <string-array name="desription_content_guidelines">
         <item>Project Manager introduces a clearly defined outline of a project. Namely, a Project consists of Milestones (these represents substantial fragments of the Project that are somehow distinctive from the rest) and the Milestones consist of Tasks - integral, short and relatively simple \'pieces of the puzzle\' that is a Project:)</item>
-        <item>You can assign a priority to your Tasks, where 100 means the lowest priority and 1 stands for the highest priority possible. If you don't provide value for priority, it will be automatically set to 50, so don't be surprised.</item>
-        <item>Marking your project as 'Done' does not move it from \'Current Projects\' to \'History\' - you have to click the \'Move to History\' button to make it happen (it allows you to move to \'History\' projects that are not marked as \'Done\', but you decided that you won't work on them anymore for some reason).</item>
-        <item>Attributes like phase, priority or dates are here to help you, but if you don't need them, then just ignore them.</item>
+        <item>You can assign a priority to your Tasks, where 100 means the lowest priority and 1 stands for the highest priority possible. If you don\'t provide value for priority, it will be automatically set to 50, so don\'t be surprised.</item>
+        <item>Marking your project as \'Done\' does not move it from \'Current Projects\' to \'History\' - you have to click the \'Move to History\' button to make it happen (it allows you to move to \'History\' projects that are not marked as \'Done\', but you decided that you won\'t work on them anymore for some reason).</item>
+        <item>Attributes like phase, priority or dates are here to help you, but if you don\'t need them, then just ignore them.</item>
     </string-array>
     
     <string-array name="info_content">
