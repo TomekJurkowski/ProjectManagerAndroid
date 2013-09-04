@@ -3,7 +3,11 @@ package com.example.projectmanager.database;
 import com.example.projectmanager.models.Project;
 import com.example.projectmanager.models.Milestone;
 import com.example.projectmanager.models.Task;
+
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -58,11 +62,11 @@ public class ProjectManagerDatabaseAdapter {
     public static final String COMPLETED_OPTIONS = "INTEGER DEFAULT 0";
     public static final int COMPLETED_COLUMN = 6;
  
-    public static final String KEY_PROJECT_ID = "_id";
+    public static final String KEY_PROJECT_ID = "project_id";
     public static final String PROJECT_ID_OPTIONS = "INTEGER PRIMARY KEY AUTOINCREMENT";
     public static final int PROJECT_ID_COLUMN = 6;
     
-    public static final String KEY_MILESTONE_ID = "_id";
+    public static final String KEY_MILESTONE_ID = "milestone_id";
     public static final String MILESTONE_ID_OPTIONS = "INTEGER PRIMARY KEY AUTOINCREMENT";
     public static final int MILESTONE_ID_COLUMN = 8;
     
@@ -129,9 +133,9 @@ public class ProjectManagerDatabaseAdapter {
             db.execSQL(DB_CREATE_TASK_TABLE);
  
             Log.d(DEBUG_TAG, "Database creating...");
-            Log.d(DEBUG_TAG, "Table " + DB_PROJECT_TABLE+ " ver." + DB_VERSION + " created");
-            Log.d(DEBUG_TAG, "Table " + DB_MILESTONE_TABLE+ " ver." + DB_VERSION + " created");
-            Log.d(DEBUG_TAG, "Table " + DB_TASK_TABLE+ " ver." + DB_VERSION + " created");
+            Log.d(DEBUG_TAG, "Table " + DB_PROJECT_TABLE + " ver." + DB_VERSION + " created");
+            Log.d(DEBUG_TAG, "Table " + DB_MILESTONE_TABLE + " ver." + DB_VERSION + " created");
+            Log.d(DEBUG_TAG, "Table " + DB_TASK_TABLE + " ver." + DB_VERSION + " created");
         }
  
         @Override
@@ -150,8 +154,187 @@ public class ProjectManagerDatabaseAdapter {
         }
     }
 	
+    public ProjectManagerDatabaseAdapter(Context context) {
+        this.context = context;
+    }
+ 
+    public ProjectManagerDatabaseAdapter open(){
+        dbHelper = new DatabaseHelper(context, DB_NAME, null, DB_VERSION);
+        try {
+            db = dbHelper.getWritableDatabase();
+        } catch (SQLException e) {
+            db = dbHelper.getReadableDatabase();
+        }
+        return this;
+    }
+ 
+    public void close() {
+        dbHelper.close();
+    }
     
+    /**
+     * Function responsible for inserting a new row into the project table in database.
+     */
+    public long insertProject(String name, String description, long start, long end,
+    		String phase) {
+    	
+        ContentValues newProjectValues = new ContentValues();
+        newProjectValues.put(KEY_NAME, name);
+        newProjectValues.put(KEY_DESCRIPTION, description);
+        newProjectValues.put(KEY_START, start);
+        newProjectValues.put(KEY_END, end);
+        newProjectValues.put(KEY_PHASE, phase);
+        // We cannot create a completed Project - declaring a Project 'completed'
+        // can only be managed on an already existing one.
+        newProjectValues.put(KEY_COMPLETED, 0);
+        return db.insert(DB_PROJECT_TABLE, null, newProjectValues);
+    }
+
+    /**
+     * Function responsible for inserting a new row into the milestone table in database.
+     */
+    public long insertMilestone(String name, String description, long start, long end,
+    		String phase, long projectId) {
+    	
+        ContentValues newMilestoneValues = new ContentValues();
+        newMilestoneValues.put(KEY_NAME, name);
+        newMilestoneValues.put(KEY_DESCRIPTION, description);
+        newMilestoneValues.put(KEY_START, start);
+        newMilestoneValues.put(KEY_END, end);
+        newMilestoneValues.put(KEY_PHASE, phase);
+        newMilestoneValues.put(KEY_PROJECT_ID, projectId);
+        return db.insert(DB_PROJECT_TABLE, null, newMilestoneValues);
+    }
     
+    /**
+     * Function responsible for inserting a new row into the task table in database.
+     */
+    public long insertTask(String name, String description, long start, long end,
+    		String phase, int priority, int estimatedTime, long milestoneId) {
+    	
+        ContentValues newTaskValues = new ContentValues();
+        newTaskValues.put(KEY_NAME, name);
+        newTaskValues.put(KEY_DESCRIPTION, description);
+        newTaskValues.put(KEY_START, start);
+        newTaskValues.put(KEY_END, end);
+        newTaskValues.put(KEY_PHASE, phase);
+        newTaskValues.put(KEY_PRIORITY, priority);
+        newTaskValues.put(KEY_ESTIMATED_TIME, estimatedTime);
+        newTaskValues.put(KEY_MILESTONE_ID, milestoneId);
+        return db.insert(DB_TASK_TABLE, null, newTaskValues);
+    }
+ 
+    /**
+     * Function responsible for updating a single row from the project table in database
+     * that corresponds to the project passed as an parameter.
+     */
+    public boolean updateProject(Project project) {
+        return updateProject(project.getId(), project.getName(), project.getDescription(),
+        		project.getStart(), project.getEnd(), project.getPhase(), project.isCompleted());
+    }
+
+    /**
+     * Function responsible for updating a single row from the project table in database
+     * that has the attribute _id equal to id passed as first parameter with values
+     * passed name, description, start, end, phase and completed.
+     */
+    public boolean updateProject(long id, String name, String description, long start,
+    		long end, String phase, boolean completed) {
+    	
+        String where = KEY_ID + "=" + id;
+        ContentValues updateProjectValues = new ContentValues();
+        updateProjectValues.put(KEY_NAME, name);
+        updateProjectValues.put(KEY_DESCRIPTION, description);
+        updateProjectValues.put(KEY_START, start);
+        updateProjectValues.put(KEY_END, end);
+        updateProjectValues.put(KEY_PHASE, phase);
+        updateProjectValues.put(KEY_COMPLETED, (completed ? 1 : 0));
+        return db.update(DB_PROJECT_TABLE, updateProjectValues, where, null) > 0;
+    }
+
+    /**
+     * Function responsible for updating a single row from the milestone table in database
+     * that corresponds to the milestone passed as an parameter.
+     */
+    public boolean updateMilestone(Milestone milestone) {
+        return updateMilestone(milestone.getId(), milestone.getName(), milestone.getDescription(),
+        		milestone.getStart(), milestone.getEnd(), milestone.getPhase(), milestone.getProjectId());
+    }
+
+    /**
+     * Function responsible for updating a single row from the milestone table in database
+     * that has the attribute _id equal to id passed as first parameter with values
+     * passed name, description, start, end, phase and projectId.
+     */
+    public boolean updateMilestone(long id, String name, String description, long start,
+    		long end, String phase, long projectId) {
+    	
+        String where = KEY_ID + "=" + id;
+        ContentValues updateMilestoneValues = new ContentValues();
+        updateMilestoneValues.put(KEY_NAME, name);
+        updateMilestoneValues.put(KEY_DESCRIPTION, description);
+        updateMilestoneValues.put(KEY_START, start);
+        updateMilestoneValues.put(KEY_END, end);
+        updateMilestoneValues.put(KEY_PHASE, phase);
+        updateMilestoneValues.put(KEY_PROJECT_ID, projectId);
+        return db.update(DB_MILESTONE_TABLE, updateMilestoneValues, where, null) > 0;
+    }
+    
+    /**
+     * Function responsible for updating a single row from the task table in database
+     * that corresponds to the task passed as an parameter.
+     */
+    public boolean updateTask(Task task) {
+        return updateTask(task.getId(), task.getName(), task.getDescription(), task.getStart(),
+        		task.getEnd(), task.getPhase(), task.getPriority(), task.getEstimatedTime(),
+        		task.getMilestoneId());
+    }
+
+    /**
+     * Function responsible for updating a single row from the task table in database
+     * that has the attribute _id equal to id passed as first parameter with values
+     * passed name, description, start, end, phase, priority, estimatedTime and milestoneId.
+     */
+    public boolean updateTask(long id, String name, String description, long start,
+    		long end, String phase, int priority, int estimatedTime, long milestoneId) {
+    	
+        String where = KEY_ID + "=" + id;
+        ContentValues updateTaskValues = new ContentValues();
+        updateTaskValues.put(KEY_NAME, name);
+        updateTaskValues.put(KEY_DESCRIPTION, description);
+        updateTaskValues.put(KEY_START, start);
+        updateTaskValues.put(KEY_END, end);
+        updateTaskValues.put(KEY_PHASE, phase);
+        updateTaskValues.put(KEY_MILESTONE_ID, milestoneId);
+        return db.update(DB_TASK_TABLE, updateTaskValues, where, null) > 0;
+    }    
+    
+    /**
+     * Function responsible for deleting a single row from the project table in database
+     * by the id.
+     */
+    public boolean deleteProject(long id) {
+        String where = KEY_ID + "=" + id;
+        return db.delete(DB_PROJECT_TABLE, where, null) > 0;
+    }
+    
+    /**
+     * Function responsible for deleting a single row from the milestone table in database
+     * by the id.
+     */
+    public boolean deleteMilestone(long id) {
+        String where = KEY_ID + "=" + id;
+        return db.delete(DB_MILESTONE_TABLE, where, null) > 0;
+    }
+    
+    /**
+     * Function responsible for deleting a single row from the task table in database
+     * by the id.
+     */
+    public boolean deleteTask(long id) {
+        String where = KEY_ID + "=" + id;
+        return db.delete(DB_TASK_TABLE, where, null) > 0;
+    }
     
     
 }
