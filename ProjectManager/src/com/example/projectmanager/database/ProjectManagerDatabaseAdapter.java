@@ -338,12 +338,26 @@ public class ProjectManagerDatabaseAdapter {
     
     /**
      * Function returning a Cursor. Its objective is to retrieve and deliver all
-     * projects from the database in the form of aforementioned Cursor object.
+     * projects that are marked as completed from the database in the form of
+     * aforementioned Cursor object.
      */
-    public Cursor getAllProjects() {
+    public Cursor getCompletedProjects() {
         String[] columns = {KEY_ID, KEY_NAME, KEY_DESCRIPTION, KEY_START, KEY_END,
         		KEY_PHASE, KEY_COMPLETED};
-        return db.query(DB_PROJECT_TABLE, columns, null, null, null, null, null);
+        String where = KEY_COMPLETED + "=1";
+        return db.query(DB_PROJECT_TABLE, columns, where, null, null, null, null);
+    }
+    
+    /**
+     * Function returning a Cursor. Its objective is to retrieve and deliver all
+     * projects that are marked as uncompleted from the database in the form of
+     * aforementioned Cursor object.
+     */
+    public Cursor getUncompletedProjects() {
+        String[] columns = {KEY_ID, KEY_NAME, KEY_DESCRIPTION, KEY_START, KEY_END,
+        		KEY_PHASE, KEY_COMPLETED};
+        String where = KEY_COMPLETED + "=0";
+        return db.query(DB_PROJECT_TABLE, columns, where, null, null, null, null);
     }
  
     /**

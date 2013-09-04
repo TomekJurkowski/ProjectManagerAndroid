@@ -8,7 +8,16 @@
     android:paddingRight="@dimen/margin_150"
     android:paddingTop="@dimen/margin_30"
     android:background="@color/transparent"
-    tools:context=".MainActivity$InfoSectionFragment" >
+    tools:context=".MainActivity$InfoSectionFragment"
+    android:orientation="vertical" >
+    
+    <ListView
+        android:layout_width="match_parent"
+        android:id="@+id/projectListView"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+        
+    </ListView>
 
     <TextView
         android:id="@+id/section_label"
