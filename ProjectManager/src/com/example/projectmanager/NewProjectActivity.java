@@ -3,8 +3,10 @@ package com.example.projectmanager;
 import java.util.Calendar;
 import java.util.Date;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,15 +16,19 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
+
+import com.example.projectmanager.database.ProjectManagerDatabaseAdapter;
 
 public class NewProjectActivity extends Activity {
 	private Spinner phaseSpinner;
 	private DatePicker startDate;
 	private DatePicker endDate;
+	private EditText name;
+	private EditText description;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +37,10 @@ public class NewProjectActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
+		name = (EditText) findViewById(R.id.new_project_name);
+		description = (EditText) findViewById(R.id.new_project_description);		
 		startDate = (DatePicker) findViewById(R.id.new_project_start);
 		endDate = (DatePicker) findViewById(R.id.new_project_end);
-		
 		phaseSpinner = (Spinner) findViewById(R.id.spinner_phase);
 		
 		// Creating adapter for spinner
@@ -48,8 +55,17 @@ public class NewProjectActivity extends Activity {
 	}
 
 	public void closeAndCreateProject () {
+		ProjectManagerDatabaseAdapter projectManagerDatabaseAdapter =
+				new ProjectManagerDatabaseAdapter(getApplicationContext());
+	    projectManagerDatabaseAdapter.open();
+	    projectManagerDatabaseAdapter.insertProject(name.getText().toString(),
+	    		description.getText().toString(), startDate.getCalendarView().getDate(),
+	    		endDate.getCalendarView().getDate(), phaseSpinner.getSelectedItem().toString());
 		Toast.makeText(this, R.string.correct_dates, Toast.LENGTH_LONG).show();			
-        finish();
+		projectManagerDatabaseAdapter.close();
+		Intent returnIntent = new Intent();
+		setResult(RESULT_OK, returnIntent);
+		finish();
 	}
 	
 	/**

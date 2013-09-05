@@ -1,13 +1,9 @@
 package com.example.projectmanager;
 
-import com.example.projectmanager.database.ProjectManagerDatabaseAdapter;
-import com.example.projectmanager.models.Project;
-
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
@@ -20,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
@@ -29,6 +26,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.projectmanager.database.ProjectManagerDatabaseAdapter;
+import com.example.projectmanager.models.Project;
 
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -55,26 +55,10 @@ public class MainActivity extends FragmentActivity implements
 	private static final int HISTORY = 2;
 	private static final int DESCRIPTION = 3;
 	private static final int INFO = 4;
+    
+    private ProjectManagerDatabaseAdapter projectManagerDbAdapter;
 
-	
-	private ListView lvCurrentProjects;
-	private ListView lvHistoryProjects;
-	
-    private void initUiElements() {
-        lvCurrentProjects = (ListView) findViewById(R.id.projectCurrentListView);
-        lvHistoryProjects = (ListView) findViewById(R.id.projectHistoryListView);
-    }
-    
-    private ProjectManagerDatabaseAdapter projectManagerDatabaseAdapter;
-    private Cursor projectCurrentCursor;
-    private List<Project> currentProjects;
-    private ProjectsAdapter listCurrentAdapter;
-    
-    private Cursor projectHistoryCursor;
-    private List<Project> historyProjects;
-    private ProjectsAdapter listHistoryAdapter;
-	
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -85,8 +69,7 @@ public class MainActivity extends FragmentActivity implements
 
 		// Create the adapter that will return a fragment for each primary
 		// sections of the app.
-		mSectionsPagerAdapter = new SectionsPagerAdapter(
-				getSupportFragmentManager());
+		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -114,10 +97,17 @@ public class MainActivity extends FragmentActivity implements
 					.setTabListener(this));
 		}
 		
-		initUiElements();
-		initListViews();
+	    projectManagerDbAdapter = new ProjectManagerDatabaseAdapter(this.getApplicationContext());
+	    projectManagerDbAdapter.open();
 	}
 
+    @Override
+    protected void onDestroy() {
+        if(projectManagerDbAdapter != null)
+        	projectManagerDbAdapter.close();
+        super.onDestroy();
+    }
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -206,156 +196,7 @@ public class MainActivity extends FragmentActivity implements
 			return null;
 		}
 	}
-		
-	/**
-	 * Function responsible for preparing ListViews lvCurrentProjects and lvHistoryProjects.	
-	 */
-	private void initListViews() {
-	    fillListViewsData();
-	    initListViewsOnItemClick();
-	}
 	
-	/**
-	 * Function basically responsible for filling the content of ListViews lvCurrentProjects
-	 * and lvHistoryProjects.
-	 */
-	private void fillListViewsData() {
-	    projectManagerDatabaseAdapter = new ProjectManagerDatabaseAdapter(getApplicationContext());
-	    projectManagerDatabaseAdapter.open();
-	    
-	    getCurrentProjects();
-	    listCurrentAdapter = new ProjectsAdapter(this, currentProjects);
-	    lvCurrentProjects.setAdapter(listCurrentAdapter);
-	    
-	    getHistoryProjects();
-	    listHistoryAdapter = new ProjectsAdapter(this, historyProjects);
-	    lvHistoryProjects.setAdapter(listHistoryAdapter);
-	}
-
-	/**
-	 * Function preparing the currentProjects list.
-	 */
-	private void getCurrentProjects() {
-	    currentProjects = new ArrayList<Project>();
-	    projectCurrentCursor = getCompletedProjectsFromDb();
-	    updateCurrentProjectList();
-	}
-	 
-	/**
-	 * Function preparing the historyProjects list.
-	 */
-	private void getHistoryProjects() {
-	    historyProjects = new ArrayList<Project>();
-	    projectHistoryCursor = getUncompletedProjectsFromDb();
-	    updateHistoryProjectList();
-	}
-
-	/**
-	 * Function returning a Cursor instance with Projects from database that are marked as completed.
-	 */
-	private Cursor getCompletedProjectsFromDb() {
-	    projectCurrentCursor = projectManagerDatabaseAdapter.getCompletedProjects();
-	    if(projectCurrentCursor != null) {
-	        startManagingCursor(projectCurrentCursor);
-	        projectCurrentCursor.moveToFirst();
-	    }
-	    return projectCurrentCursor;
-	}
-	 
-	/**
-	 * Function returning a Cursor instance with Projects from database that are marked as uncompleted.
-	 */
-	private Cursor getUncompletedProjectsFromDb() {
-	    projectHistoryCursor = projectManagerDatabaseAdapter.getUncompletedProjects();
-	    if(projectHistoryCursor != null) {
-	        startManagingCursor(projectHistoryCursor);
-	        projectHistoryCursor.moveToFirst();
-	    }
-	    return projectHistoryCursor;
-	}
-
-	/**
-	 * Function updating the currentProject List based on projectCurrentCursor content.
-	 */
-	private void updateCurrentProjectList() {
-	    currentProjects.clear();
-	    if(projectCurrentCursor != null && projectCurrentCursor.moveToFirst()) {
-	        do {
-	            long id = projectCurrentCursor.getLong(ProjectManagerDatabaseAdapter.ID_COLUMN);
-	            String name = projectCurrentCursor.getString(ProjectManagerDatabaseAdapter.NAME_COLUMN);
-	            String description = projectCurrentCursor.getString(ProjectManagerDatabaseAdapter.DESCRIPTION_COLUMN);
-	            long start = projectCurrentCursor.getLong(ProjectManagerDatabaseAdapter.START_COLUMN);
-	            long end = projectCurrentCursor.getLong(ProjectManagerDatabaseAdapter.END_COLUMN);	            
-	            String phase = projectCurrentCursor.getString(ProjectManagerDatabaseAdapter.PHASE_COLUMN);
-	            boolean completed = projectCurrentCursor.getInt(ProjectManagerDatabaseAdapter.COMPLETED_COLUMN) > 0 ? true : false;
-	            currentProjects.add(new Project(id, name, description, start, end, phase, completed));
-	        } while(projectCurrentCursor.moveToNext());
-	    }
-	}
-	
-	/**
-	 * Function updating the historyProject List based on projectHistoryCursor content.
-	 */
-	private void updateHistoryProjectList() {
-	    historyProjects.clear();
-	    if(projectHistoryCursor != null && projectHistoryCursor.moveToFirst()) {
-	        do {
-	            long id = projectHistoryCursor.getLong(ProjectManagerDatabaseAdapter.ID_COLUMN);
-	            String name = projectHistoryCursor.getString(ProjectManagerDatabaseAdapter.NAME_COLUMN);
-	            String description = projectHistoryCursor.getString(ProjectManagerDatabaseAdapter.DESCRIPTION_COLUMN);
-	            long start = projectHistoryCursor.getLong(ProjectManagerDatabaseAdapter.START_COLUMN);
-	            long end = projectHistoryCursor.getLong(ProjectManagerDatabaseAdapter.END_COLUMN);	            
-	            String phase = projectHistoryCursor.getString(ProjectManagerDatabaseAdapter.PHASE_COLUMN);
-	            boolean completed = projectHistoryCursor.getInt(ProjectManagerDatabaseAdapter.COMPLETED_COLUMN) > 0 ? true : false;
-	            historyProjects.add(new Project(id, name, description, start, end, phase, completed));
-	        } while(projectHistoryCursor.moveToNext());
-	    }
-	}
-	
-	/**
-	 * Function responsible for creating a proper action for clicking a single project
-	 * (either in 'Current Projects' or 'History' panels).
-	 */
-	private void initListViewsOnItemClick() {
-	    lvCurrentProjects.setOnItemClickListener(new OnItemClickListener() {
-	        @Override
-	        public void onItemClick(AdapterView<?> parent, View v, int position,
-	                long id) {
-	            Project project = currentProjects.get(position);
-	            Toast.makeText(getApplicationContext(), "You've just touched a current project;)", Toast.LENGTH_SHORT).show();
-	            updateCurrentListViewData();
-	        }
-	    });
-	    
-	    lvHistoryProjects.setOnItemClickListener(new OnItemClickListener() {
-	        @Override
-	        public void onItemClick(AdapterView<?> parent, View v, int position,
-	                long id) {
-	            Project project = historyProjects.get(position);
-	            Toast.makeText(getApplicationContext(), "You've just touched a history project;)", Toast.LENGTH_SHORT).show();
-	            updateHistoryListViewData();
-	        }
-	    });
-	}
-
-	/**
-	 * Function basically responsible for updating the content of ListView lvCurrentProjects.
-	 */
-	private void updateCurrentListViewData() {
-	    projectCurrentCursor.requery();
-	    updateCurrentProjectList();
-	    listCurrentAdapter.notifyDataSetChanged();
-	}
-	
-	/**
-	 * Function basically responsible for updating the content of ListView lvHistoryProjects.
-	 */
-	private void updateHistoryListViewData() {
-	    projectHistoryCursor.requery();
-	    updateHistoryProjectList();
-	    listHistoryAdapter.notifyDataSetChanged();
-	}
-
 	/**
 	 * Function that tries to start the activity and catches the error if the
 	 * activity is not installed.
@@ -386,15 +227,22 @@ public class MainActivity extends FragmentActivity implements
 	        }
 	    }
 	}
-
+	
+	private static final int REQUEST_CODE = 1;
 	
 	/**
 	 * Function that starts the NewProjectActivity.
 	 */	
 	public void btnNewProjectOnClick(View v) {
         Intent intent = new Intent(getApplicationContext(), NewProjectActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE);
     }
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+			mViewPager.setAdapter(mSectionsPagerAdapter);
+		}
+	}
 	
 	public static class MenuSectionFragment extends Fragment {
 		
@@ -413,49 +261,49 @@ public class MainActivity extends FragmentActivity implements
 		}
 	}
 	
-	public static class CurrentProjectSectionFragment extends Fragment {
-
-		public CurrentProjectSectionFragment() {
-		}
-		
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main_current_projects, container, false);
-			
-			TextView titleTextView = (TextView) rootView.findViewById(R.id.section_label);
-			if (true) {
-				titleTextView.setText(R.string.no_current_project);
-				titleTextView.setTextSize(30);
-			} else {
-				titleTextView.setText(R.string.current_projects_title);				
-			}
-						
-			return rootView;
-		}
-	}
+//	public static class CurrentProjectSectionFragment extends Fragment {
+//
+//		public CurrentProjectSectionFragment() {
+//		}
+//		
+//		@Override
+//		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//				Bundle savedInstanceState) {
+//			View rootView = inflater.inflate(R.layout.fragment_main_current_projects, container, false);
+//			
+//			TextView titleTextView = (TextView) rootView.findViewById(R.id.section_label);
+//			if (true) {
+//				titleTextView.setText(R.string.no_current_project);
+//				titleTextView.setTextSize(30);
+//			} else {
+//				titleTextView.setText(R.string.current_projects_title);				
+//			}
+//						
+//			return rootView;
+//		}
+//	}
 	
-	public static class HistorySectionFragment extends Fragment {
-
-		public HistorySectionFragment() {
-		}
-		
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main_history, container, false);
-			
-			TextView titleTextView = (TextView) rootView.findViewById(R.id.section_label);
-			if (true) {
-				titleTextView.setText(R.string.no_finished_project);
-				titleTextView.setTextSize(30);
-			} else {
-				titleTextView.setText(R.string.finished_projects_title);				
-			}
-						
-			return rootView;
-		}
-	}
+//	public static class HistorySectionFragment extends Fragment {
+//
+//		public HistorySectionFragment() {
+//		}
+//		
+//		@Override
+//		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//				Bundle savedInstanceState) {
+//			View rootView = inflater.inflate(R.layout.fragment_main_history, container, false);
+//			
+//			TextView titleTextView = (TextView) rootView.findViewById(R.id.section_label);
+//			if (true) {
+//				titleTextView.setText(R.string.no_finished_project);
+//				titleTextView.setTextSize(30);
+//			} else {
+//				titleTextView.setText(R.string.finished_projects_title);				
+//			}
+//						
+//			return rootView;
+//		}
+//	}
 
 	public static class DescriptionSectionFragment extends Fragment {
 
@@ -539,4 +387,279 @@ public class MainActivity extends FragmentActivity implements
 		}
 	}
 	
+	public static class CurrentProjectSectionFragment extends ListFragment {
+	
+		@Override
+		public void onActivityCreated(Bundle savedInstanceState) {
+			super.onActivityCreated(savedInstanceState);
+			parentActivity  = getActivity();
+		    fillListViewData();
+		}
+
+	    @Override
+	    public void onDestroy() {
+	        if(projectManagerDatabaseAdapter != null)
+	        	projectManagerDatabaseAdapter.close();
+	        super.onDestroy();
+	    }
+	    
+	    private ProjectManagerDatabaseAdapter projectManagerDatabaseAdapter;
+	    private Cursor projectCurrentCursor;
+	    private List<Project> currentProjects;
+	    private ProjectsAdapter listCurrentAdapter;
+	    private FragmentActivity parentActivity;
+		
+		/**
+		 * Function basically responsible for filling the content of ListView lvCurrentProjects.
+		 */
+		private void fillListViewData() {
+		    projectManagerDatabaseAdapter = new ProjectManagerDatabaseAdapter(
+		    		parentActivity.getApplicationContext());
+		    projectManagerDatabaseAdapter.open();
+		    
+		    getCurrentProjects();
+		    listCurrentAdapter = new ProjectsAdapter(parentActivity, currentProjects);
+	    	setListAdapter(listCurrentAdapter);
+		}
+
+		/**
+		 * Function preparing the currentProjects list.
+		 */
+		private void getCurrentProjects() {
+		    currentProjects = new ArrayList<Project>();
+		    getUncompletedProjectsFromDb();
+		    updateCurrentProjectList();
+		}
+
+		/**
+		 * Function preparing a Cursor instance with Projects from database that are marked as uncompleted.
+		 */		
+		@SuppressWarnings("deprecation")
+		private void getUncompletedProjectsFromDb() {
+		    projectCurrentCursor = projectManagerDatabaseAdapter.getUncompletedProjects();
+		    if(projectCurrentCursor != null) {
+		        parentActivity.startManagingCursor(projectCurrentCursor);
+		        projectCurrentCursor.moveToFirst();
+		    }
+		}	
+
+		/**
+		 * Function updating the currentProject List based on projectCurrentCursor content.
+		 */
+		private void updateCurrentProjectList() {
+		    currentProjects.clear();
+		    if(projectCurrentCursor != null && projectCurrentCursor.moveToFirst()) {
+		        do {
+		            long id = projectCurrentCursor.getLong(ProjectManagerDatabaseAdapter.ID_COLUMN);
+		            String name = projectCurrentCursor.getString(ProjectManagerDatabaseAdapter.NAME_COLUMN);
+		            String description = projectCurrentCursor.getString(ProjectManagerDatabaseAdapter.DESCRIPTION_COLUMN);
+		            long start = projectCurrentCursor.getLong(ProjectManagerDatabaseAdapter.START_COLUMN);
+		            long end = projectCurrentCursor.getLong(ProjectManagerDatabaseAdapter.END_COLUMN);
+		            String phase = projectCurrentCursor.getString(ProjectManagerDatabaseAdapter.PHASE_COLUMN);
+		            boolean completed = projectCurrentCursor.getInt(ProjectManagerDatabaseAdapter.COMPLETED_COLUMN) > 0 ? true : false;
+		            currentProjects.add(new Project(id, name, description, start, end, phase, completed));
+		        } while(projectCurrentCursor.moveToNext());
+		    }
+		}		
+
+		/**
+		 * Function basically responsible for updating the content of ListView lvCurrentProjects.
+		 */
+		@SuppressWarnings("deprecation")
+		public void updateCurrentListViewData() {
+		    projectCurrentCursor.requery();
+		    updateCurrentProjectList();
+		    listCurrentAdapter.notifyDataSetChanged();
+		}
+
+		@Override
+		public void onListItemClick(ListView l, View v, int position, long id) {
+            Toast.makeText(parentActivity, "You've just touched a current project;)", Toast.LENGTH_SHORT).show();
+            updateCurrentListViewData();
+	
+		}
+	}
+	
+	public static class HistorySectionFragment  extends ListFragment {
+
+		@Override
+		public void onActivityCreated(Bundle savedInstanceState) {
+			super.onActivityCreated(savedInstanceState);
+			parentActivity  = getActivity();
+		    fillListViewData();
+		}
+		
+	    @Override
+	    public void onDestroy() {
+	        if(projectManagerDatabaseAdapter != null)
+	        	projectManagerDatabaseAdapter.close();
+	        super.onDestroy();
+	    }
+	    
+	    private ProjectManagerDatabaseAdapter projectManagerDatabaseAdapter;
+	    private Cursor projectHistoryCursor;
+	    private List<Project> historyProjects;
+	    private ProjectsAdapter listHistoryAdapter;
+	    private FragmentActivity parentActivity;
+
+		/**
+		 * Function basically responsible for filling the content of ListView lvHistoryProjects.
+		 */
+		private void fillListViewData() {
+		    projectManagerDatabaseAdapter = new ProjectManagerDatabaseAdapter(
+		    		parentActivity.getApplicationContext());
+		    projectManagerDatabaseAdapter.open();
+		    
+		    getHistoryProjects();
+		    listHistoryAdapter = new ProjectsAdapter(parentActivity, historyProjects);
+	    	setListAdapter(listHistoryAdapter);
+		}
+
+		/**
+		 * Function preparing the historyProjects list.
+		 */
+		private void getHistoryProjects() {
+		    historyProjects = new ArrayList<Project>();
+		    getCompletedProjectsFromDb();
+		    updateHistoryProjectList();
+		}
+
+		/**
+		 * Function preparing a Cursor instance with Projects from database that are marked as completed.
+		 */
+		@SuppressWarnings("deprecation")
+		private void getCompletedProjectsFromDb() {
+		    projectHistoryCursor = projectManagerDatabaseAdapter.getCompletedProjects();
+		    if(projectHistoryCursor != null) {
+		        parentActivity.startManagingCursor(projectHistoryCursor);
+		        projectHistoryCursor.moveToFirst();
+		    }
+		}
+
+		/**
+		 * Function updating the historyProject List based on projectHistoryCursor content.
+		 */
+		private void updateHistoryProjectList() {
+		    historyProjects.clear();
+		    if(projectHistoryCursor != null && projectHistoryCursor.moveToFirst()) {
+		        do {
+		            long id = projectHistoryCursor.getLong(ProjectManagerDatabaseAdapter.ID_COLUMN);
+		            String name = projectHistoryCursor.getString(ProjectManagerDatabaseAdapter.NAME_COLUMN);
+		            String description = projectHistoryCursor.getString(ProjectManagerDatabaseAdapter.DESCRIPTION_COLUMN);
+		            long start = projectHistoryCursor.getLong(ProjectManagerDatabaseAdapter.START_COLUMN);
+		            long end = projectHistoryCursor.getLong(ProjectManagerDatabaseAdapter.END_COLUMN);	            
+		            String phase = projectHistoryCursor.getString(ProjectManagerDatabaseAdapter.PHASE_COLUMN);
+		            boolean completed = projectHistoryCursor.getInt(ProjectManagerDatabaseAdapter.COMPLETED_COLUMN) > 0 ? true : false;
+		            historyProjects.add(new Project(id, name, description, start, end, phase, completed));
+		        } while(projectHistoryCursor.moveToNext());
+		    }
+		}
+
+		/**
+		 * Function basically responsible for updating the content of ListView lvHistoryProjects.
+		 */
+		@SuppressWarnings("deprecation")
+		private void updateHistoryListViewData() {
+		    projectHistoryCursor.requery();
+		    updateHistoryProjectList();
+		    listHistoryAdapter.notifyDataSetChanged();
+		}
+		
+		@Override
+		public void onListItemClick(ListView l, View v, int position, long id) {
+            Toast.makeText(parentActivity, "You've just touched a history project;)", Toast.LENGTH_SHORT).show();
+            updateHistoryListViewData();
+	
+		}
+	}
+	
+	/**
+	 * Function that removes all projects marked as uncompleted (found in 'Current Projects' panel).
+	 */	
+	@SuppressWarnings("deprecation")
+	public void btnClearCurrentProjects(View v) {
+		if (projectManagerDbAdapter != null) {
+			Cursor c = projectManagerDbAdapter.getUncompletedProjects();
+			if (c != null) {
+				startManagingCursor(c);
+			}
+			if(c != null && c.moveToFirst()) {
+		        do {
+		        	long id = c.getLong(ProjectManagerDatabaseAdapter.ID_COLUMN);
+	                deleteMilestones(id);
+	                projectManagerDbAdapter.deleteProject(id);
+		        } while (c.moveToNext());
+				mViewPager.setAdapter(mSectionsPagerAdapter);
+				Toast.makeText(this, "Your current projects have been cleared.", Toast.LENGTH_SHORT).show();
+		    } else {
+		    	Toast.makeText(this, "You don't have any current projects.", Toast.LENGTH_SHORT).show();
+		    }
+		}
+	}
+
+	/**
+	 * Function that removes all projects marked as completed (found in 'History' panel).
+	 */	
+	@SuppressWarnings("deprecation")
+	public void btnClearHistory(View v) {
+		if (projectManagerDbAdapter != null) {
+			Cursor c = projectManagerDbAdapter.getCompletedProjects();
+			if (c != null) {
+				startManagingCursor(c);
+			}
+		    if(c != null && c.moveToFirst()) {
+		        do {
+		        	long id = c.getLong(ProjectManagerDatabaseAdapter.ID_COLUMN);
+	                deleteMilestones(id);
+		        	projectManagerDbAdapter.deleteProject(id);
+		        } while (c.moveToNext());
+				mViewPager.setAdapter(mSectionsPagerAdapter);
+				Toast.makeText(this, "History has been cleared.", Toast.LENGTH_SHORT).show();
+		    } else {
+		    	Toast.makeText(this, "There is nothing in the History.", Toast.LENGTH_SHORT).show();
+		    }
+		}
+	}
+	
+	/**
+	 * Function expects an id of a project and it removes milestones from database that have
+	 * attribute project_id equal to that id.
+	 */	
+	@SuppressWarnings("deprecation")
+	private void deleteMilestones(long projectId) {
+		if (projectManagerDbAdapter != null) {
+			Cursor c = projectManagerDbAdapter.getAllTasksFromMilestone(projectId);
+			if (c != null) {
+				startManagingCursor(c);
+			}
+			if(c != null && c.moveToFirst()) {
+		        do {
+		        	long id = c.getLong(ProjectManagerDatabaseAdapter.ID_COLUMN);
+		        	deleteTasks(id);
+		        	projectManagerDbAdapter.deleteMilestone(id);
+		        } while (c.moveToNext());
+		    }
+		}
+	}
+	
+	/**
+	 * Function expects an id of a milestone and it removes tasks from database that have
+	 * attribute milestone_id equal to that id.
+	 */	
+	@SuppressWarnings("deprecation")
+	private void deleteTasks(long milestoneId) {
+		if (projectManagerDbAdapter != null) {
+			Cursor c = projectManagerDbAdapter.getAllTasksFromMilestone(milestoneId);
+			if (c != null) {
+				startManagingCursor(c);
+			}
+		    if(c != null && c.moveToFirst()) {
+		        do {
+		        	long id = c.getLong(ProjectManagerDatabaseAdapter.ID_COLUMN);
+		        	projectManagerDbAdapter.deleteTask(id);
+		        } while (c.moveToNext());
+		    }
+		}
+	}
+
 }

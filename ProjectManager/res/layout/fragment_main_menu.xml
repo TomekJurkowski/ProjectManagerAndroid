@@ -47,7 +47,8 @@
         android:text="@string/clear_history_button"
         android:id="@+id/button_clear_history"
         android:background="@drawable/btn_yellow"
-        style="@style/ButtonText" />
+        style="@style/ButtonText"
+        android:onClick="btnClearHistory" />
     
     <Space
         android:layout_width="match_parent"
@@ -58,7 +59,8 @@
         android:text="@string/clear_current_button"
         android:id="@+id/button_clear_current"
         android:background="@drawable/btn_yellow"
-        style="@style/ButtonText" />
+        style="@style/ButtonText"
+        android:onClick="btnClearCurrentProjects" />
     
     <Space
         android:layout_width="match_parent"

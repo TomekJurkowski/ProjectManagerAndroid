@@ -1,9 +1,5 @@
 package com.example.projectmanager.database;
 
-import com.example.projectmanager.models.Project;
-import com.example.projectmanager.models.Milestone;
-import com.example.projectmanager.models.Task;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,11 +9,15 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.projectmanager.models.Milestone;
+import com.example.projectmanager.models.Project;
+import com.example.projectmanager.models.Task;
+
 public class ProjectManagerDatabaseAdapter {
 	private static final String DEBUG_TAG = "SqLiteProjectManager";
 	 
     private static final int DB_VERSION = 1;
-    private static final String DB_NAME = "database.db";
+    private static final String DB_NAME = "project_manager_database.db";
     private static final String DB_PROJECT_TABLE = "project";
     private static final String DB_MILESTONE_TABLE = "milestone";
     private static final String DB_TASK_TABLE = "task";
@@ -63,16 +63,16 @@ public class ProjectManagerDatabaseAdapter {
     public static final int COMPLETED_COLUMN = 6;
  
     public static final String KEY_PROJECT_ID = "project_id";
-    public static final String PROJECT_ID_OPTIONS = "INTEGER PRIMARY KEY AUTOINCREMENT";
+    public static final String PROJECT_ID_OPTIONS = "INTEGER";
     public static final int PROJECT_ID_COLUMN = 6;
     
     public static final String KEY_MILESTONE_ID = "milestone_id";
-    public static final String MILESTONE_ID_OPTIONS = "INTEGER PRIMARY KEY AUTOINCREMENT";
+    public static final String MILESTONE_ID_OPTIONS = "INTEGER";
     public static final int MILESTONE_ID_COLUMN = 8;
     
     /**
-     * The following static final strings are sql statement to create and drop tables.
-     */    
+     * The following static final strings are sql statements to create and drop tables.
+     */
     private static final String DB_CREATE_PROJECT_TABLE =
             "CREATE TABLE " + DB_PROJECT_TABLE + "( " +
             KEY_ID + " " + ID_OPTIONS + ", " +
@@ -82,10 +82,10 @@ public class ProjectManagerDatabaseAdapter {
             KEY_END + " " + END_OPTIONS + ", " +
             KEY_PHASE + " " + PHASE_OPTIONS + ", " +
             KEY_COMPLETED + " " + COMPLETED_OPTIONS +
-            ");";
+            " );";
 
     private static final String DB_CREATE_MILESTONE_TABLE =
-            "CREATE TABLE " + DB_PROJECT_TABLE + "( " +
+            "CREATE TABLE " + DB_MILESTONE_TABLE + "( " +
             KEY_ID + " " + ID_OPTIONS + ", " +
             KEY_NAME + " " + NAME_OPTIONS + ", " +
             KEY_DESCRIPTION + " " + DESCRIPTION_OPTIONS + ", " +
@@ -93,7 +93,7 @@ public class ProjectManagerDatabaseAdapter {
             KEY_END + " " + END_OPTIONS + ", " +
             KEY_PHASE + " " + PHASE_OPTIONS + ", " +
             KEY_PROJECT_ID + " " + PROJECT_ID_OPTIONS +
-            ");";
+            " );";
     
     private static final String DB_CREATE_TASK_TABLE =
             "CREATE TABLE " + DB_TASK_TABLE + "( " +
@@ -103,17 +103,17 @@ public class ProjectManagerDatabaseAdapter {
             KEY_START + " " + START_OPTIONS + ", " +
             KEY_END + " " + END_OPTIONS + ", " +
             KEY_PHASE + " " + PHASE_OPTIONS + ", " +
-            KEY_PRIORITY + " " + PRIORITY_OPTIONS +
-            KEY_ESTIMATED_TIME + " " + ESTIMATED_TIME_OPTIONS +
+            KEY_PRIORITY + " " + PRIORITY_OPTIONS + ", " +
+            KEY_ESTIMATED_TIME + " " + ESTIMATED_TIME_OPTIONS + ", " +
             KEY_MILESTONE_ID + " " + MILESTONE_ID_OPTIONS +
-            ");";
+            " );";
     
     private static final String DROP_PROJECT_TABLE =
-            "DROP TABLE IF EXISTS " + DB_PROJECT_TABLE;
+            "DROP TABLE IF EXISTS " + DB_PROJECT_TABLE + ";";
     private static final String DROP_MILESTONE_TABLE =
-            "DROP TABLE IF EXISTS " + DB_MILESTONE_TABLE;
+            "DROP TABLE IF EXISTS " + DB_MILESTONE_TABLE + ";";
     private static final String DROP_TASK_TABLE =
-            "DROP TABLE IF EXISTS " + DB_TASK_TABLE;
+            "DROP TABLE IF EXISTS " + DB_TASK_TABLE + ";";
  
     
     private SQLiteDatabase db;
@@ -128,7 +128,7 @@ public class ProjectManagerDatabaseAdapter {
  
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL(DB_CREATE_PROJECT_TABLE);
+        	db.execSQL(DB_CREATE_PROJECT_TABLE);
             db.execSQL(DB_CREATE_MILESTONE_TABLE);
             db.execSQL(DB_CREATE_TASK_TABLE);
  
@@ -143,7 +143,7 @@ public class ProjectManagerDatabaseAdapter {
         	db.execSQL(DROP_TASK_TABLE);
             db.execSQL(DROP_MILESTONE_TABLE);
             db.execSQL(DROP_PROJECT_TABLE);
- 
+            
             Log.d(DEBUG_TAG, "Database updating...");
             Log.d(DEBUG_TAG, "Table " + DB_TASK_TABLE + " updated from ver." + oldVersion + " to ver." + newVersion);
             Log.d(DEBUG_TAG, "Table " + DB_MILESTONE_TABLE + " updated from ver." + oldVersion + " to ver." + newVersion);
@@ -158,7 +158,7 @@ public class ProjectManagerDatabaseAdapter {
         this.context = context;
     }
  
-    public ProjectManagerDatabaseAdapter open(){
+    public ProjectManagerDatabaseAdapter open() {
         dbHelper = new DatabaseHelper(context, DB_NAME, null, DB_VERSION);
         try {
             db = dbHelper.getWritableDatabase();
