@@ -1,31 +1,32 @@
 package com.example.projectmanager;
 
-import java.util.Locale;
+import com.example.projectmanager.database.ProjectManagerDatabaseAdapter;
+import com.example.projectmanager.models.Project;
 
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.GradientDrawable.Orientation;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.text.method.ScrollingMovementMethod;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Space;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,11 +49,30 @@ public class MainActivity extends FragmentActivity implements
 	ViewPager mViewPager;
 	
 	private static final int NUM_PAGES = 5;
+	
 	private static final int MENU = 0;
 	private static final int CURRENT_PROJECTS = 1;
 	private static final int HISTORY = 2;
 	private static final int DESCRIPTION = 3;
 	private static final int INFO = 4;
+
+	
+	private ListView lvCurrentProjects;
+	private ListView lvHistoryProjects;
+	
+    private void initUiElements() {
+        lvCurrentProjects = (ListView) findViewById(R.id.projectCurrentListView);
+        lvHistoryProjects = (ListView) findViewById(R.id.projectHistoryListView);
+    }
+    
+    private ProjectManagerDatabaseAdapter projectManagerDatabaseAdapter;
+    private Cursor projectCurrentCursor;
+    private List<Project> currentProjects;
+    private ProjectsAdapter listCurrentAdapter;
+    
+    private Cursor projectHistoryCursor;
+    private List<Project> historyProjects;
+    private ProjectsAdapter listHistoryAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +113,9 @@ public class MainActivity extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+		
+		initUiElements();
+		initListViews();
 	}
 
 	@Override
@@ -125,8 +148,6 @@ public class MainActivity extends FragmentActivity implements
 	 * one of the sections/tabs/pages.
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-		
 		
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
@@ -185,6 +206,155 @@ public class MainActivity extends FragmentActivity implements
 			return null;
 		}
 	}
+		
+	/**
+	 * Function responsible for preparing ListViews lvCurrentProjects and lvHistoryProjects.	
+	 */
+	private void initListViews() {
+	    fillListViewsData();
+	    initListViewsOnItemClick();
+	}
+	
+	/**
+	 * Function basically responsible for filling the content of ListViews lvCurrentProjects
+	 * and lvHistoryProjects.
+	 */
+	private void fillListViewsData() {
+	    projectManagerDatabaseAdapter = new ProjectManagerDatabaseAdapter(getApplicationContext());
+	    projectManagerDatabaseAdapter.open();
+	    
+	    getCurrentProjects();
+	    listCurrentAdapter = new ProjectsAdapter(this, currentProjects);
+	    lvCurrentProjects.setAdapter(listCurrentAdapter);
+	    
+	    getHistoryProjects();
+	    listHistoryAdapter = new ProjectsAdapter(this, historyProjects);
+	    lvHistoryProjects.setAdapter(listHistoryAdapter);
+	}
+
+	/**
+	 * Function preparing the currentProjects list.
+	 */
+	private void getCurrentProjects() {
+	    currentProjects = new ArrayList<Project>();
+	    projectCurrentCursor = getCompletedProjectsFromDb();
+	    updateCurrentProjectList();
+	}
+	 
+	/**
+	 * Function preparing the historyProjects list.
+	 */
+	private void getHistoryProjects() {
+	    historyProjects = new ArrayList<Project>();
+	    projectHistoryCursor = getUncompletedProjectsFromDb();
+	    updateHistoryProjectList();
+	}
+
+	/**
+	 * Function returning a Cursor instance with Projects from database that are marked as completed.
+	 */
+	private Cursor getCompletedProjectsFromDb() {
+	    projectCurrentCursor = projectManagerDatabaseAdapter.getCompletedProjects();
+	    if(projectCurrentCursor != null) {
+	        startManagingCursor(projectCurrentCursor);
+	        projectCurrentCursor.moveToFirst();
+	    }
+	    return projectCurrentCursor;
+	}
+	 
+	/**
+	 * Function returning a Cursor instance with Projects from database that are marked as uncompleted.
+	 */
+	private Cursor getUncompletedProjectsFromDb() {
+	    projectHistoryCursor = projectManagerDatabaseAdapter.getUncompletedProjects();
+	    if(projectHistoryCursor != null) {
+	        startManagingCursor(projectHistoryCursor);
+	        projectHistoryCursor.moveToFirst();
+	    }
+	    return projectHistoryCursor;
+	}
+
+	/**
+	 * Function updating the currentProject List based on projectCurrentCursor content.
+	 */
+	private void updateCurrentProjectList() {
+	    currentProjects.clear();
+	    if(projectCurrentCursor != null && projectCurrentCursor.moveToFirst()) {
+	        do {
+	            long id = projectCurrentCursor.getLong(ProjectManagerDatabaseAdapter.ID_COLUMN);
+	            String name = projectCurrentCursor.getString(ProjectManagerDatabaseAdapter.NAME_COLUMN);
+	            String description = projectCurrentCursor.getString(ProjectManagerDatabaseAdapter.DESCRIPTION_COLUMN);
+	            long start = projectCurrentCursor.getLong(ProjectManagerDatabaseAdapter.START_COLUMN);
+	            long end = projectCurrentCursor.getLong(ProjectManagerDatabaseAdapter.END_COLUMN);	            
+	            String phase = projectCurrentCursor.getString(ProjectManagerDatabaseAdapter.PHASE_COLUMN);
+	            boolean completed = projectCurrentCursor.getInt(ProjectManagerDatabaseAdapter.COMPLETED_COLUMN) > 0 ? true : false;
+	            currentProjects.add(new Project(id, name, description, start, end, phase, completed));
+	        } while(projectCurrentCursor.moveToNext());
+	    }
+	}
+	
+	/**
+	 * Function updating the historyProject List based on projectHistoryCursor content.
+	 */
+	private void updateHistoryProjectList() {
+	    historyProjects.clear();
+	    if(projectHistoryCursor != null && projectHistoryCursor.moveToFirst()) {
+	        do {
+	            long id = projectHistoryCursor.getLong(ProjectManagerDatabaseAdapter.ID_COLUMN);
+	            String name = projectHistoryCursor.getString(ProjectManagerDatabaseAdapter.NAME_COLUMN);
+	            String description = projectHistoryCursor.getString(ProjectManagerDatabaseAdapter.DESCRIPTION_COLUMN);
+	            long start = projectHistoryCursor.getLong(ProjectManagerDatabaseAdapter.START_COLUMN);
+	            long end = projectHistoryCursor.getLong(ProjectManagerDatabaseAdapter.END_COLUMN);	            
+	            String phase = projectHistoryCursor.getString(ProjectManagerDatabaseAdapter.PHASE_COLUMN);
+	            boolean completed = projectHistoryCursor.getInt(ProjectManagerDatabaseAdapter.COMPLETED_COLUMN) > 0 ? true : false;
+	            historyProjects.add(new Project(id, name, description, start, end, phase, completed));
+	        } while(projectHistoryCursor.moveToNext());
+	    }
+	}
+	
+	/**
+	 * Function responsible for creating a proper action for clicking a single project
+	 * (either in 'Current Projects' or 'History' panels).
+	 */
+	private void initListViewsOnItemClick() {
+	    lvCurrentProjects.setOnItemClickListener(new OnItemClickListener() {
+	        @Override
+	        public void onItemClick(AdapterView<?> parent, View v, int position,
+	                long id) {
+	            Project project = currentProjects.get(position);
+	            Toast.makeText(getApplicationContext(), "You've just touched a current project;)", Toast.LENGTH_SHORT).show();
+	            updateCurrentListViewData();
+	        }
+	    });
+	    
+	    lvHistoryProjects.setOnItemClickListener(new OnItemClickListener() {
+	        @Override
+	        public void onItemClick(AdapterView<?> parent, View v, int position,
+	                long id) {
+	            Project project = historyProjects.get(position);
+	            Toast.makeText(getApplicationContext(), "You've just touched a history project;)", Toast.LENGTH_SHORT).show();
+	            updateHistoryListViewData();
+	        }
+	    });
+	}
+
+	/**
+	 * Function basically responsible for updating the content of ListView lvCurrentProjects.
+	 */
+	private void updateCurrentListViewData() {
+	    projectCurrentCursor.requery();
+	    updateCurrentProjectList();
+	    listCurrentAdapter.notifyDataSetChanged();
+	}
+	
+	/**
+	 * Function basically responsible for updating the content of ListView lvHistoryProjects.
+	 */
+	private void updateHistoryListViewData() {
+	    projectHistoryCursor.requery();
+	    updateHistoryProjectList();
+	    listHistoryAdapter.notifyDataSetChanged();
+	}
 
 	/**
 	 * Function that tries to start the activity and catches the error if the
@@ -242,7 +412,7 @@ public class MainActivity extends FragmentActivity implements
 			return rootView;
 		}
 	}
-
+	
 	public static class CurrentProjectSectionFragment extends Fragment {
 
 		public CurrentProjectSectionFragment() {

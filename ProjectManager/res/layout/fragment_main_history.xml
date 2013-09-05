@@ -13,7 +13,7 @@
     
     <ListView
         android:layout_width="match_parent"
-        android:id="@+id/projectListView"
+        android:id="@+id/projectHistoryListView"
         android:layout_weight="1"
         android:layout_height="0dp">
         
