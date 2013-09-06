@@ -22,6 +22,7 @@ public class ProjectsAdapter extends ArrayAdapter<Project> {
     static class ViewHolder {
         public TextView projectName;
         public TextView projectDescription;
+        public TextView projectPhase;
     }
  
     @Override
@@ -34,6 +35,7 @@ public class ProjectsAdapter extends ArrayAdapter<Project> {
             viewHolder = new ViewHolder();
             viewHolder.projectName = (TextView) rowView.findViewById(R.id.projectName);
             viewHolder.projectDescription = (TextView) rowView.findViewById(R.id.projectDescription);
+            viewHolder.projectPhase = (TextView) rowView.findViewById(R.id.projectPhase);
             rowView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) rowView.getTag();
@@ -41,6 +43,7 @@ public class ProjectsAdapter extends ArrayAdapter<Project> {
         Project project = projects.get(position);
         viewHolder.projectName.setText(project.getName());
         viewHolder.projectDescription.setText(project.getDescription());
+        viewHolder.projectPhase.setText(project.getPhase());
         
         return rowView;
     }

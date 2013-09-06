@@ -396,7 +396,7 @@ public class MainActivity extends FragmentActivity implements
 		    fillListViewData();
 		}
 
-	    @Override
+		@Override
 	    public void onDestroy() {
 	        if(projectManagerDatabaseAdapter != null)
 	        	projectManagerDatabaseAdapter.close();
@@ -476,11 +476,10 @@ public class MainActivity extends FragmentActivity implements
 		public void onListItemClick(ListView l, View v, int position, long id) {
             Toast.makeText(parentActivity, "You've just touched a current project;)", Toast.LENGTH_SHORT).show();
             updateCurrentListViewData();
-	
 		}
 	}
 	
-	public static class HistorySectionFragment  extends ListFragment {
+	public static class HistorySectionFragment extends ListFragment {
 
 		@Override
 		public void onActivityCreated(Bundle savedInstanceState) {

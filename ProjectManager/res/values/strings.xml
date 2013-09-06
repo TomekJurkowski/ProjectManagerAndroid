@@ -16,12 +16,6 @@
     
     <!-- Strings for activity com.example.projectmanager.MainActivity. -->
     <string name="menu_title">Main Menu</string>
-    <string name="current_projects_title">Undergoing Projects</string>
-    <string name="finished_projects_title">Finished Projects</string>
-    <string name="no_current_project">You don\'t have any unfinished projects. Go to the \'Menu\' panel to start
-         a new project or to the \'History\' panel to see the completed ones.</string>
-    <string name="no_finished_project">You have no projects in the \'History\' panel. Go to the \'Menu\'
-         panel to start a new project or to the \'Current Projects\' panel to see/edit an existing one.</string>
     <string name="ic_yellow">Yellow icon</string>
     
     <string name="new_button">Create new Project</string>
@@ -29,6 +23,8 @@
     <string name="clear_current_button">Clear Current Projects</string>
     <string name="rate_app_button">Rate my App!</string>
 
+    <string name="delete_icon">Delete</string>
+    
     <string-array name="desription_content">
         <item>The main objective of Project Manager App is to help you (and your team) manage your projects.</item>
         <item>It is designed for small and uncommercial enterprises.</item>
