@@ -24,6 +24,7 @@
     <string name="rate_app_button">Rate my App!</string>
 
     <string name="delete_icon">Delete</string>
+    <string name="are_you_sure">Are you sure?</string>
     
     <string-array name="desription_content">
         <item>The main objective of Project Manager App is to help you (and your team) manage your projects.</item>

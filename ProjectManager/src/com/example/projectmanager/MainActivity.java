@@ -19,11 +19,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.text.method.ScrollingMovementMethod;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -577,6 +581,32 @@ public class MainActivity extends FragmentActivity implements
 	 */	
 	@SuppressWarnings("deprecation")
 	public void btnClearCurrentProjects(View v) {
+		LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
+	    View popupView = layoutInflater.inflate(R.layout.are_you_sure_popup, null);  
+	    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+
+	    Button btnYes = (Button) popupView.findViewById(R.id.yes);
+    	btnYes.setOnClickListener(new Button.OnClickListener() {
+    		@Override
+    		public void onClick(View v) {
+    			popupWindow.dismiss();
+    			removeCurrentProjects();
+    		}
+    	});
+		
+	    Button btnNo = (Button) popupView.findViewById(R.id.no);
+    	btnNo.setOnClickListener(new Button.OnClickListener() {
+    		@Override
+    		public void onClick(View v) {
+    			popupWindow.dismiss();
+    		}
+    	});
+
+    	popupWindow.setFocusable(true);
+    	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+	}
+	
+	public void removeCurrentProjects() {
 		if (projectManagerDbAdapter != null) {
 			Cursor c = projectManagerDbAdapter.getUncompletedProjects();
 			if (c != null) {
@@ -595,12 +625,41 @@ public class MainActivity extends FragmentActivity implements
 		    }
 		}
 	}
+	
+	
+	
 
 	/**
 	 * Function that removes all projects marked as completed (found in 'History' panel).
 	 */	
 	@SuppressWarnings("deprecation")
 	public void btnClearHistory(View v) {
+		LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
+	    View popupView = layoutInflater.inflate(R.layout.are_you_sure_popup, null);  
+	    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+
+	    Button btnYes = (Button) popupView.findViewById(R.id.yes);
+    	btnYes.setOnClickListener(new Button.OnClickListener() {
+    		@Override
+    		public void onClick(View v) {
+    			popupWindow.dismiss();
+    			removeHistoryProjects();
+    		}
+    	});
+		
+	    Button btnNo = (Button) popupView.findViewById(R.id.no);
+    	btnNo.setOnClickListener(new Button.OnClickListener() {
+    		@Override
+    		public void onClick(View v) {
+    			popupWindow.dismiss();
+    		}
+    	});
+
+    	popupWindow.setFocusable(true);
+    	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+	}
+
+	public void removeHistoryProjects() {
 		if (projectManagerDbAdapter != null) {
 			Cursor c = projectManagerDbAdapter.getCompletedProjects();
 			if (c != null) {

@@ -91,15 +91,16 @@ public final class R {
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int activity_new_project=0x7f030001;
-        public static final int equal_date_popup=0x7f030002;
-        public static final int fragment_main_description=0x7f030003;
-        public static final int fragment_main_info=0x7f030004;
-        public static final int fragment_main_menu=0x7f030005;
-        public static final int incorrect_date_popup=0x7f030006;
-        public static final int milestone_list_item=0x7f030007;
-        public static final int project_list_item=0x7f030008;
-        public static final int spinner_layout=0x7f030009;
-        public static final int task_list_item=0x7f03000a;
+        public static final int are_you_sure_popup=0x7f030002;
+        public static final int equal_date_popup=0x7f030003;
+        public static final int fragment_main_description=0x7f030004;
+        public static final int fragment_main_info=0x7f030005;
+        public static final int fragment_main_menu=0x7f030006;
+        public static final int incorrect_date_popup=0x7f030007;
+        public static final int milestone_list_item=0x7f030008;
+        public static final int project_list_item=0x7f030009;
+        public static final int spinner_layout=0x7f03000a;
+        public static final int task_list_item=0x7f03000b;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -110,35 +111,36 @@ public final class R {
         /**  Strings used as titles of Activities or Fragments. 
          */
         public static final int app_name=0x7f050000;
+        public static final int are_you_sure=0x7f05000f;
         public static final int clear_current_button=0x7f05000c;
         public static final int clear_history_button=0x7f05000b;
-        public static final int correct_dates=0x7f050015;
+        public static final int correct_dates=0x7f050016;
         public static final int delete_icon=0x7f05000e;
-        public static final int equal_dates=0x7f050017;
+        public static final int equal_dates=0x7f050018;
         public static final int ic_yellow=0x7f050009;
-        public static final int incorrect_dates=0x7f050016;
+        public static final int incorrect_dates=0x7f050017;
         /**  Strings for activity com.example.projectmanager.MainActivity. 
          */
         public static final int menu_title=0x7f050008;
         public static final int new_button=0x7f05000a;
         public static final int new_project=0x7f050002;
-        public static final int new_project_description=0x7f050010;
-        public static final int new_project_end_date=0x7f050012;
+        public static final int new_project_description=0x7f050011;
+        public static final int new_project_end_date=0x7f050013;
         /**  Strings for activity com.example.projectmanager.NewProjectActivity. 
          */
-        public static final int new_project_name=0x7f05000f;
-        public static final int new_project_phase=0x7f050013;
-        public static final int new_project_start_date=0x7f050011;
-        public static final int no=0x7f05001a;
-        public static final int ok=0x7f050018;
-        public static final int phase_prompt=0x7f050014;
+        public static final int new_project_name=0x7f050010;
+        public static final int new_project_phase=0x7f050014;
+        public static final int new_project_start_date=0x7f050012;
+        public static final int no=0x7f05001b;
+        public static final int ok=0x7f050019;
+        public static final int phase_prompt=0x7f050015;
         public static final int rate_app_button=0x7f05000d;
         public static final int title_section1=0x7f050003;
         public static final int title_section2=0x7f050004;
         public static final int title_section3=0x7f050005;
         public static final int title_section4=0x7f050006;
         public static final int title_section5=0x7f050007;
-        public static final int yes=0x7f050019;
+        public static final int yes=0x7f05001a;
     }
     public static final class style {
         /** 
