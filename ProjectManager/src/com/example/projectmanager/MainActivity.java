@@ -579,7 +579,6 @@ public class MainActivity extends FragmentActivity implements
 	/**
 	 * Function that removes all projects marked as uncompleted (found in 'Current Projects' panel).
 	 */	
-	@SuppressWarnings("deprecation")
 	public void btnClearCurrentProjects(View v) {
 		LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
 	    View popupView = layoutInflater.inflate(R.layout.are_you_sure_popup, null);  
@@ -606,6 +605,7 @@ public class MainActivity extends FragmentActivity implements
     	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void removeCurrentProjects() {
 		if (projectManagerDbAdapter != null) {
 			Cursor c = projectManagerDbAdapter.getUncompletedProjects();
@@ -626,13 +626,9 @@ public class MainActivity extends FragmentActivity implements
 		}
 	}
 	
-	
-	
-
 	/**
 	 * Function that removes all projects marked as completed (found in 'History' panel).
 	 */	
-	@SuppressWarnings("deprecation")
 	public void btnClearHistory(View v) {
 		LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
 	    View popupView = layoutInflater.inflate(R.layout.are_you_sure_popup, null);  
@@ -659,6 +655,7 @@ public class MainActivity extends FragmentActivity implements
     	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void removeHistoryProjects() {
 		if (projectManagerDbAdapter != null) {
 			Cursor c = projectManagerDbAdapter.getCompletedProjects();

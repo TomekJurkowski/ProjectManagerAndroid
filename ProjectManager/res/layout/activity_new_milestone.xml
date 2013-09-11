@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".NewProjectActivity"
+    tools:context=".NewMilestoneActivity"
     android:orientation="vertical" >
     
     <Space
@@ -29,7 +29,7 @@
 	        android:gravity="center_horizontal"
 	        android:textColor="@color/white"
         	android:textSize="25sp"
- 	        android:text="@string/new_project_name" />
+ 	        android:text="@string/new_milestone_name" />
 		    
 	    <EditText
 	        android:layout_width="match_parent"
@@ -43,7 +43,7 @@
 	        android:textColorHighlight="@color/blue"
 	        android:textSize="35sp"
       	    android:background="@drawable/edittext_round"
-	        android:id="@+id/new_project_name" />
+	        android:id="@+id/new_milestone_name" />
 
     </LinearLayout>
 	<LinearLayout
@@ -79,7 +79,7 @@
 	        android:textColorHighlight="@color/blue"
 	        android:textSize="25sp"
 	        android:background="@drawable/edittext_round"
-	        android:id="@+id/new_project_description" />
+	        android:id="@+id/new_milestone_description" />
 	   	    
     </LinearLayout>
 	<LinearLayout
@@ -106,7 +106,7 @@
 	        android:layout_gravity="right"
 	        android:gravity="right"
 	        android:calendarViewShown="false"
-	        android:id="@+id/new_project_start" />
+	        android:id="@+id/new_milestone_start" />
 
     </LinearLayout>
 	<LinearLayout
@@ -133,7 +133,7 @@
 	        android:layout_gravity="right"
 	        android:gravity="right"
 	        android:calendarViewShown="false"
-	        android:id="@+id/new_project_end" />
+	        android:id="@+id/new_milestone_end" />
 
 	</LinearLayout>
 	<LinearLayout
@@ -153,7 +153,7 @@
 			android:gravity="center_horizontal"
 			android:textColor="@color/white"
 			android:textSize="25sp"
-			android:text="@string/new_project_phase" />
+			android:text="@string/new_milestone_phase" />
  
 		<Spinner
 			android:layout_width="wrap_content"
@@ -178,7 +178,7 @@
 			android:id="@+id/button_new"
 			android:background="@drawable/btn_yellow"
 			style="@style/ButtonText"
-			android:onClick="btnCreateNewProjectOnClick" />
+			android:onClick="btnCreateNewMilestoneOnClick" />
 	</FrameLayout>
         
 	<Space

@@ -1,26 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:baselineAligned="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/margin_15">
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_15"
+    android:background="@color/semi_transparent" >
+
+    <LinearLayout
+        android:layout_width="0dp"
+	    android:layout_height="match_parent"
+	    android:layout_weight="3"
+	    android:orientation="vertical" >
+        
+	    <TextView
+	        android:id="@+id/milestoneName"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="@dimen/margin_50"
+	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        android:singleLine="true" />
+    	<TextView
+	        android:id="@+id/milestoneDescription"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="@dimen/margin_50"
+	        android:singleLine="true"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
     
-    <TextView
-        android:id="@+id/milestoneName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_30"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:singleLine="true" >
-    
-    </TextView>
-    <TextView
-        android:id="@+id/milestoneDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_30"
-        android:textAppearance="?android:attr/textAppearanceMedium" >
-    
-    </TextView>
-    
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+	    android:layout_height="match_parent"
+	    android:layout_weight="1"
+	    android:orientation="vertical" >
+
+        <TextView
+	        android:id="@+id/milestoneDates"
+    	    android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+		    android:gravity="center_horizontal"
+		    android:layout_gravity="center_horizontal"
+		    android:textAppearance="?android:attr/textAppearanceMedium" />
+	    <TextView
+	        android:id="@+id/milestonePhase"
+	        android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_horizontal"
+		    android:gravity="center_horizontal"
+		    android:textAppearance="?android:attr/textAppearanceMedium" />
+	    
+    </LinearLayout>
 </LinearLayout>

@@ -64,12 +64,14 @@
     <color name="semi_transparent_dark">#ddffffff</color>
     
     
-    <!-- Strings for activity com.example.projectmanager.NewProjectActivity. -->
+    <!-- Strings for activities NewProjectActivity, NewMilestoneActivity. -->
     <string name="new_project_name">Project Name:</string>
-    <string name="new_project_description">Description:</string>
-    <string name="new_project_start_date">Start Date:</string>
-    <string name="new_project_end_date">End Date:</string>
+    <string name="new_description">Description:</string>
+    <string name="new_start_date">Start Date:</string>
+    <string name="new_end_date">End Date:</string>
     <string name="new_project_phase">Phase of the Project:</string>
+    <string name="new_milestone_name">Milestone Name:</string>
+    <string name="new_milestone_phase">Phase of the Milestone:</string>
     
     <string name="phase_prompt">Choose the phase of your Project</string>
     <string-array name="phases">
