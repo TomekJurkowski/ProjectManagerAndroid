@@ -22,25 +22,29 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.projectmanager.database.ProjectManagerDatabaseAdapter;
+import com.example.projectmanager.models.Project;
 
-public class NewProjectActivity extends Activity {
+public class NewMilestoneActivity extends Activity {
 	private Spinner phaseSpinner;
 	private DatePicker startDate;
 	private DatePicker endDate;
 	private EditText name;
 	private EditText description;
 	
+	private Project project;
+	private ProjectManagerDatabaseAdapter projectManagerDbAdapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_project);
+		setContentView(R.layout.activity_new_milestone);
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-		name = (EditText) findViewById(R.id.new_project_name);
-		description = (EditText) findViewById(R.id.new_project_description);		
-		startDate = (DatePicker) findViewById(R.id.new_project_start);
-		endDate = (DatePicker) findViewById(R.id.new_project_end);
+		name = (EditText) findViewById(R.id.new_milestone_name);
+		description = (EditText) findViewById(R.id.new_milestone_description);		
+		startDate = (DatePicker) findViewById(R.id.new_milestone_start);
+		endDate = (DatePicker) findViewById(R.id.new_milestone_end);
 		phaseSpinner = (Spinner) findViewById(R.id.spinner_phase);
 		
 		// Creating adapter for spinner
@@ -52,17 +56,27 @@ public class NewProjectActivity extends Activity {
         
         // attaching data adapter to spinner
         phaseSpinner.setAdapter(dataAdapter);
+        
+		projectManagerDbAdapter = new ProjectManagerDatabaseAdapter(getApplicationContext());
+	    projectManagerDbAdapter.open();
+        
+		Bundle b = getIntent().getExtras();
+		long value = b.getLong("project_id");
+		
+	    project = projectManagerDbAdapter.getProject(value);
+	    if (project == null) {
+			Toast.makeText(this, R.string.db_error, Toast.LENGTH_LONG).show();
+			projectManagerDbAdapter.close();
+			finish();
+	    }
 	}
 
-	public void closeAndCreateProject() {
-		ProjectManagerDatabaseAdapter projectManagerDatabaseAdapter =
-				new ProjectManagerDatabaseAdapter(getApplicationContext());
-	    projectManagerDatabaseAdapter.open();
-	    projectManagerDatabaseAdapter.insertProject(name.getText().toString(),
-	    		description.getText().toString(), startDate.getCalendarView().getDate(),
-	    		endDate.getCalendarView().getDate(), phaseSpinner.getSelectedItem().toString());
+	public void closeAndCreateMilestone() {
+	    projectManagerDbAdapter.insertMilestone(name.getText().toString(), description.getText().toString(),
+	    		startDate.getCalendarView().getDate(), endDate.getCalendarView().getDate(),
+	    		phaseSpinner.getSelectedItem().toString(), project.getId());
 		Toast.makeText(this, R.string.correct_dates, Toast.LENGTH_LONG).show();			
-		projectManagerDatabaseAdapter.close();
+		projectManagerDbAdapter.close();
 		Intent returnIntent = new Intent();
 		setResult(RESULT_OK, returnIntent);
 		finish();
@@ -73,7 +87,7 @@ public class NewProjectActivity extends Activity {
 	 * window with an information that some data are incorrect or (if all the data are
 	 * proper) it will finish this activity and create the new project.
 	 */	
-	public void btnCreateNewProjectOnClick(View v) {
+	public void btnCreateNewMilestoneOnClick(View v) {
 	    Calendar cal = Calendar.getInstance();
 	    cal.set(Calendar.YEAR, startDate.getYear());
 	    cal.set(Calendar.MONTH, startDate.getMonth());
@@ -85,11 +99,25 @@ public class NewProjectActivity extends Activity {
 	    cal.set(Calendar.DAY_OF_MONTH, endDate.getDayOfMonth());
 	    Date end = cal.getTime();
 		
-		if (start.before(end)) {
-			closeAndCreateProject();
+	    if (project.getStart() > startDate.getCalendarView().getDate()
+				|| project.getEnd() < endDate.getCalendarView().getDate()) {
+			LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
+		    View popupView = layoutInflater.inflate(R.layout.date_out_of_range_popup_m, null);  
+		    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+
+		    Button btnOk = (Button) popupView.findViewById(R.id.dismiss);
+	    	btnOk.setOnClickListener(new Button.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    			popupWindow.dismiss();
+	    		}
+	    	});
+
+		    popupWindow.setFocusable(true);
+	    	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 		} else if (start.equals(end)) {
 			LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
-		    View popupView = layoutInflater.inflate(R.layout.equal_date_popup, null);  
+		    View popupView = layoutInflater.inflate(R.layout.equal_date_popup_m, null);  
 		    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
 		    Button btnYes = (Button) popupView.findViewById(R.id.yes);
@@ -97,7 +125,7 @@ public class NewProjectActivity extends Activity {
 	    		@Override
 	    		public void onClick(View v) {
 	    			popupWindow.dismiss();
-	    			closeAndCreateProject();
+	    			closeAndCreateMilestone();
 	    		}
 	    	});
 
@@ -111,11 +139,13 @@ public class NewProjectActivity extends Activity {
 
 	    	popupWindow.setFocusable(true);
 	    	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+		} else if (start.before(end)) {
+			closeAndCreateMilestone();
 		} else {
 			LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
-		    View popupView = layoutInflater.inflate(R.layout.incorrect_date_popup, null);  
+		    View popupView = layoutInflater.inflate(R.layout.incorrect_date_popup_m, null);
 		    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		             
+
 		    Button btnOk = (Button) popupView.findViewById(R.id.dismiss);
 	    	btnOk.setOnClickListener(new Button.OnClickListener() {
 	    		@Override
@@ -140,7 +170,7 @@ public class NewProjectActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.new_project, menu);
+		getMenuInflater().inflate(R.menu.new_milestone, menu);
 		return false;
 	}
 

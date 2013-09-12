@@ -51,7 +51,9 @@ public class MainActivity extends FragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
-	
+
+	private static final int REQUEST_CODE = 1;
+
 	private static final int NUM_PAGES = 5;
 	
 	private static final int MENU = 0;
@@ -232,8 +234,6 @@ public class MainActivity extends FragmentActivity implements
 	    }
 	}
 	
-	private static final int REQUEST_CODE = 1;
-	
 	/**
 	 * Function that starts the NewProjectActivity.
 	 */	
@@ -264,50 +264,6 @@ public class MainActivity extends FragmentActivity implements
 			return rootView;
 		}
 	}
-	
-//	public static class CurrentProjectSectionFragment extends Fragment {
-//
-//		public CurrentProjectSectionFragment() {
-//		}
-//		
-//		@Override
-//		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//				Bundle savedInstanceState) {
-//			View rootView = inflater.inflate(R.layout.fragment_main_current_projects, container, false);
-//			
-//			TextView titleTextView = (TextView) rootView.findViewById(R.id.section_label);
-//			if (true) {
-//				titleTextView.setText(R.string.no_current_project);
-//				titleTextView.setTextSize(30);
-//			} else {
-//				titleTextView.setText(R.string.current_projects_title);				
-//			}
-//						
-//			return rootView;
-//		}
-//	}
-	
-//	public static class HistorySectionFragment extends Fragment {
-//
-//		public HistorySectionFragment() {
-//		}
-//		
-//		@Override
-//		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//				Bundle savedInstanceState) {
-//			View rootView = inflater.inflate(R.layout.fragment_main_history, container, false);
-//			
-//			TextView titleTextView = (TextView) rootView.findViewById(R.id.section_label);
-//			if (true) {
-//				titleTextView.setText(R.string.no_finished_project);
-//				titleTextView.setTextSize(30);
-//			} else {
-//				titleTextView.setText(R.string.finished_projects_title);				
-//			}
-//						
-//			return rootView;
-//		}
-//	}
 
 	public static class DescriptionSectionFragment extends Fragment {
 
@@ -352,8 +308,7 @@ public class MainActivity extends FragmentActivity implements
 			contentTextView.setMaxHeight(rootView.getHeight()/3);
 			contentTextView.setMovementMethod(new ScrollingMovementMethod());
 			contentTextView.setText(sb.toString());
-			
-			
+					
 			return rootView;
 		}
 	}
@@ -478,8 +433,11 @@ public class MainActivity extends FragmentActivity implements
 
 		@Override
 		public void onListItemClick(ListView l, View v, int position, long id) {
-            Toast.makeText(parentActivity, "You've just touched a current project;)", Toast.LENGTH_SHORT).show();
-            updateCurrentListViewData();
+	        Intent intent = new Intent(parentActivity.getApplicationContext(), ProjectActivity.class);
+	        Bundle b = new Bundle();
+	        b.putLong("project_id", currentProjects.get((int)id).getId());
+	        intent.putExtras(b);
+	        parentActivity.startActivityForResult(intent, REQUEST_CODE);
 		}
 	}
 	

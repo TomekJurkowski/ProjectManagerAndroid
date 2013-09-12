@@ -33,6 +33,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.projectmanager.MainActivity" />
         </activity>
+        <activity
+            android:name="com.example.projectmanager.ProjectActivity"
+            android:label="@string/project"
+            android:parentActivityName="com.example.projectmanager.MainActivity"
+            android:configChanges="orientation" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.projectmanager.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.projectmanager.NewMilestoneActivity"
+            android:label="@string/new_milestone"
+            android:parentActivityName="com.example.projectmanager.ProjectActivity"
+            android:configChanges="orientation"
+            android:windowSoftInputMode="stateHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.projectmanager.ProjectActivity" />
+        </activity>
+        
     </application>
 
 </manifest>

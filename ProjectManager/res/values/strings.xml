@@ -6,13 +6,16 @@
     <string name="action_settings">Settings</string>
     
     <string name="new_project">New Project</string>
-    
+    <string name="project">Project</string>
+    <string name="new_milestone">New Milestone</string>
+    <string name="milestone">Milestone</string>
+    <string name="new_task">New Task</string>
+    <string name="task">Task</string>
     <string name="title_section1">Menu</string>
     <string name="title_section2">Current Projects</string>
     <string name="title_section3">History</string>
     <string name="title_section4">Description</string>
     <string name="title_section5">Info</string>
-    
     
     <!-- Strings for activity com.example.projectmanager.MainActivity. -->
     <string name="menu_title">Main Menu</string>
@@ -85,9 +88,22 @@
     <string name="correct_dates">New project has been created.\nYou can find it in \'Current Project\' panel.</string>
     <string name="incorrect_dates">The start date of the project cannot be subsequent to the end date of your project. Fix that to create you project.</string>
 	<string name="equal_dates">The start date is the same as the end date. Are you sure you can finish your project in one day?</string>
+    <string name="incorrect_dates_m">The start date of the milestone cannot be subsequent to the end date of your milestone. Fix that to create this milestone.</string>
+	<string name="equal_dates_m">The start date is the same as the end date. Are you sure you can finish that milestone in one day?</string>
+    <string name="date_out_of_range_m">The milestone\'s start and end date shouldn\'t go beyond the project\'s boundaries.</string>
+		
 	<string name="ok">OK</string>
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
 	
+	<!-- Strings for activities ProjectActivity, MilestoneActivity, NewMilestoneActivity. -->
+	<string name="move_to_history_button">Move to History</string>
+	<string name="add_milestone_button">New Milestone</string>
+	<string name="add_task_button">New Task</string>
+    <string name="add_milestone_btn">Add Milestone</string>
+    <string name="add_task_btn">Add Task</string>
+	
+	<string name="db_error">Database Error - please report this issue.</string>
+	<string name="project_moved_to_history">Your project has been moved to History.</string>
 	
 </resources>

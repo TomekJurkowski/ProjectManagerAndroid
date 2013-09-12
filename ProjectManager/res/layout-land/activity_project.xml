@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_land"
+    tools:context=".ProjectActivity"
+    android:orientation="vertical" >
+    
+    <TextView
+        android:id="@+id/projectName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_50"
+        android:layout_marginLeft="@dimen/margin_150"
+        android:layout_marginRight="@dimen/margin_150"
+   		android:padding="@dimen/margin_15"
+		android:textColor="@color/pale_yellow"
+		android:textColorHighlight="@color/blue"
+		android:textSize="60sp"
+		android:background="@drawable/edittext_round" />
+    
+    <TextView
+        android:id="@+id/projectDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/margin_150"
+        android:layout_marginRight="@dimen/margin_150"
+        android:layout_marginTop="@dimen/margin_30"
+        android:layout_marginBottom="@dimen/margin_30"
+   		android:padding="@dimen/margin_15"
+		android:textColor="@color/white"
+		android:textColorHighlight="@color/blue"
+		android:textSize="25sp"
+		android:background="@drawable/edittext_round" />
+    
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/margin_150"
+        android:layout_marginRight="@dimen/margin_150"
+        android:layout_marginBottom="@dimen/margin_30"
+        android:orientation="horizontal" >
+        
+	    <TextView
+	        android:id="@+id/projectDate"
+	        android:layout_weight="1"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal"
+    	    android:gravity="center_horizontal"
+	        android:layout_marginRight="@dimen/margin_30"
+       		android:padding="@dimen/margin_15"
+			android:singleLine="true"
+			android:textColor="@color/white"
+			android:textColorHighlight="@color/blue"
+			android:textSize="20sp"
+			android:background="@drawable/edittext_round" />
+    	<TextView
+	        android:id="@+id/projectPhase"
+	        android:layout_weight="1"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+    	    android:gravity="center_horizontal"    
+   	        android:layout_marginLeft="@dimen/margin_30"
+       		android:padding="@dimen/margin_15"
+	        android:singleLine="true"
+			android:textColor="@color/pale_blue"
+			android:textColorHighlight="@color/blue"
+			android:textSize="20sp"
+			android:background="@drawable/edittext_round" />
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:layout_marginLeft="@dimen/margin_150"
+        android:layout_marginRight="@dimen/margin_150"
+        android:layout_marginTop="@dimen/margin_30"
+        android:layout_marginBottom="@dimen/margin_30"
+        android:orientation="horizontal" >
+        
+        <FrameLayout
+	        android:layout_width="0dp"
+	    	android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:paddingBottom="@dimen/margin_0"
+		    android:paddingLeft="@dimen/margin_0"
+		    android:paddingRight="@dimen/margin_30"
+		    android:paddingTop="@dimen/margin_0" >
+            <Button
+		        android:text="@string/move_to_history_button"
+		        android:id="@+id/button_move_to_history"
+		        android:background="@drawable/btn_yellow"
+		        style="@style/ButtonText"
+		        android:onClick="btnMoveToHistoryOnClick" />
+        </FrameLayout>    
+        
+        <FrameLayout
+	        android:layout_width="0dp"
+	    	android:layout_height="wrap_content"
+	    	android:layout_weight="1"
+		    android:paddingBottom="@dimen/margin_0"
+		    android:paddingLeft="@dimen/margin_30"
+		    android:paddingRight="@dimen/margin_0"
+		    android:paddingTop="@dimen/margin_0" >
+		    <Button
+		        android:text="@string/add_milestone_button"
+		        android:id="@+id/button_add_milestone"
+		        android:background="@drawable/btn_yellow"
+		        style="@style/ButtonText"
+		        android:onClick="btnAddMilestoneOnClick" />
+        </FrameLayout>
+        
+    </LinearLayout>
+    
+</LinearLayout>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/background_land"
     tools:context=".NewMilestoneActivity" >
     
     <LinearLayout
@@ -150,11 +150,11 @@
 	    android:paddingTop="@dimen/margin_30"
 	    android:layout_alignParentBottom="true" >
         <Button
-	        android:text="@string/new_button"
+	        android:text="@string/add_milestone_btn"
 	        android:id="@+id/button_new"
 	        android:background="@drawable/btn_yellow"
 	        style="@style/ButtonText"
-	        android:onClick="btnCreateNewProjectOnClick" />
+	        android:onClick="btnCreateNewMilestoneOnClick" />
 	</FrameLayout>
     
     <LinearLayout

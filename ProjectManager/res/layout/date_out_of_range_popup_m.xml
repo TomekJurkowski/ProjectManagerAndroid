@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_50"
+    android:background="@drawable/popup_round" >
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:gravity="center"
+			android:textColor="@color/yellow"
+			android:paddingBottom="@dimen/margin_50"
+			android:textSize="35sp"
+			android:text="@string/date_out_of_range_m" />
+		<Button
+			android:id="@+id/dismiss"
+			style="@style/ButtonText"
+	        android:background="@drawable/btn_yellow"
+			android:text="@string/ok" />
+	
+</LinearLayout>

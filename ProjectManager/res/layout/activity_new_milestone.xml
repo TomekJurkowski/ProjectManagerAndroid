@@ -174,7 +174,7 @@
 		android:paddingRight="@dimen/margin_150"
 		android:paddingTop="@dimen/margin_0" >
 		<Button
-			android:text="@string/new_button"
+			android:text="@string/add_milestone_btn"
 			android:id="@+id/button_new"
 			android:background="@drawable/btn_yellow"
 			style="@style/ButtonText"
