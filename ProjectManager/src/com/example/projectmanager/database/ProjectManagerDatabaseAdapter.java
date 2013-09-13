@@ -203,7 +203,7 @@ public class ProjectManagerDatabaseAdapter {
         newMilestoneValues.put(KEY_END, end);
         newMilestoneValues.put(KEY_PHASE, phase);
         newMilestoneValues.put(KEY_PROJECT_ID, projectId);
-        return db.insert(DB_PROJECT_TABLE, null, newMilestoneValues);
+        return db.insert(DB_MILESTONE_TABLE, null, newMilestoneValues);
     }
     
     /**

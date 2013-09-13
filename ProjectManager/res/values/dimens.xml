@@ -9,5 +9,7 @@
     <dimen name="margin_15">15dp</dimen>
     <dimen name="margin_100">100dp</dimen>
     <dimen name="margin_50">50dp</dimen>
+    <dimen name="margin_200">200dp</dimen>
+    <dimen name="margin_250">250dp</dimen>
 
 </resources>

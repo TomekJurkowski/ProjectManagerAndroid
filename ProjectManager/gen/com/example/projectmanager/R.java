@@ -35,13 +35,15 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f040007;
+        public static final int activity_horizontal_margin=0x7f040009;
         public static final int margin_0=0x7f040002;
         public static final int margin_100=0x7f040005;
         public static final int margin_15=0x7f040004;
         /**  Default screen margins, per the Android Design guidelines. 
          */
         public static final int margin_150=0x7f040000;
+        public static final int margin_200=0x7f040007;
+        public static final int margin_250=0x7f040008;
         public static final int margin_30=0x7f040001;
         public static final int margin_300=0x7f040003;
         public static final int margin_50=0x7f040006;
@@ -60,43 +62,47 @@ public final class R {
         public static final int wallpaper=0x7f02000a;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0024;
-        public static final int button=0x7f0a0019;
-        public static final int button_add_milestone=0x7f0a0012;
-        public static final int button_clear_current=0x7f0a001b;
-        public static final int button_clear_history=0x7f0a001a;
-        public static final int button_move_to_history=0x7f0a0011;
-        public static final int button_new=0x7f0a0006;
-        public static final int dismiss=0x7f0a0015;
-        public static final int framed_button=0x7f0a0008;
-        public static final int milestoneDates=0x7f0a001e;
-        public static final int milestoneDescription=0x7f0a001d;
-        public static final int milestoneName=0x7f0a001c;
-        public static final int milestonePhase=0x7f0a001f;
-        public static final int name_and_description=0x7f0a0007;
+        public static final int action_settings=0x7f0a0028;
+        public static final int button=0x7f0a001d;
+        public static final int button_add_milestone=0x7f0a0015;
+        public static final int button_clear_current=0x7f0a001f;
+        public static final int button_clear_history=0x7f0a001e;
+        public static final int button_delete=0x7f0a0016;
+        public static final int button_move_to_history=0x7f0a0014;
+        public static final int button_new=0x7f0a0008;
+        public static final int dismiss=0x7f0a0019;
+        public static final int framed_button=0x7f0a000a;
+        public static final int lvMilestones=0x7f0a0013;
+        public static final int milestoneDates=0x7f0a0022;
+        public static final int milestoneDescription=0x7f0a0021;
+        public static final int milestoneName=0x7f0a0020;
+        public static final int milestonePhase=0x7f0a0023;
+        public static final int name_and_description=0x7f0a0009;
         public static final int new_milestone_description=0x7f0a0002;
-        public static final int new_milestone_end=0x7f0a0004;
+        public static final int new_milestone_end=0x7f0a0006;
+        public static final int new_milestone_end_title=0x7f0a0005;
         public static final int new_milestone_name=0x7f0a0001;
-        public static final int new_milestone_start=0x7f0a0003;
-        public static final int new_project_description=0x7f0a000a;
-        public static final int new_project_end=0x7f0a000c;
-        public static final int new_project_name=0x7f0a0009;
-        public static final int new_project_start=0x7f0a000b;
-        public static final int no=0x7f0a0014;
+        public static final int new_milestone_start=0x7f0a0004;
+        public static final int new_milestone_start_title=0x7f0a0003;
+        public static final int new_project_description=0x7f0a000c;
+        public static final int new_project_end=0x7f0a000e;
+        public static final int new_project_name=0x7f0a000b;
+        public static final int new_project_start=0x7f0a000d;
+        public static final int no=0x7f0a0018;
         public static final int pager=0x7f0a0000;
-        public static final int projectDate=0x7f0a000f;
-        public static final int projectDates=0x7f0a0020;
-        public static final int projectDescription=0x7f0a000e;
-        public static final int projectName=0x7f0a000d;
-        public static final int projectPhase=0x7f0a0010;
-        public static final int section_label=0x7f0a0016;
-        public static final int section_text=0x7f0a0017;
-        public static final int section_text_guidelines=0x7f0a0018;
-        public static final int spinnerTarget=0x7f0a0021;
-        public static final int spinner_phase=0x7f0a0005;
-        public static final int taskDescription=0x7f0a0023;
-        public static final int taskName=0x7f0a0022;
-        public static final int yes=0x7f0a0013;
+        public static final int projectDate=0x7f0a0011;
+        public static final int projectDates=0x7f0a0024;
+        public static final int projectDescription=0x7f0a0010;
+        public static final int projectName=0x7f0a000f;
+        public static final int projectPhase=0x7f0a0012;
+        public static final int section_label=0x7f0a001a;
+        public static final int section_text=0x7f0a001b;
+        public static final int section_text_guidelines=0x7f0a001c;
+        public static final int spinnerTarget=0x7f0a0025;
+        public static final int spinner_phase=0x7f0a0007;
+        public static final int taskDescription=0x7f0a0027;
+        public static final int taskName=0x7f0a0026;
+        public static final int yes=0x7f0a0017;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -136,8 +142,9 @@ public final class R {
         public static final int clear_history_button=0x7f050010;
         public static final int correct_dates=0x7f05001d;
         public static final int date_out_of_range_m=0x7f050022;
-        public static final int db_error=0x7f05002b;
+        public static final int db_error=0x7f05002c;
         public static final int delete_icon=0x7f050013;
+        public static final int delete_project_button=0x7f05002b;
         public static final int equal_dates=0x7f05001f;
         public static final int equal_dates_m=0x7f050021;
         public static final int ic_yellow=0x7f05000e;
@@ -167,7 +174,8 @@ public final class R {
         public static final int ok=0x7f050023;
         public static final int phase_prompt=0x7f05001c;
         public static final int project=0x7f050003;
-        public static final int project_moved_to_history=0x7f05002c;
+        public static final int project_deleted=0x7f05002e;
+        public static final int project_moved_to_history=0x7f05002d;
         public static final int rate_app_button=0x7f050012;
         public static final int task=0x7f050007;
         public static final int title_section1=0x7f050008;

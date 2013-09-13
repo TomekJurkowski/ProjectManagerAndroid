@@ -79,6 +79,12 @@
         
     </LinearLayout>
     
+    <ListView
+        android:layout_width="fill_parent"
+        android:id="@+id/lvMilestones"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+	
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -122,5 +128,21 @@
         </FrameLayout>
         
     </LinearLayout>
+    
+    
+    <FrameLayout
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+	    android:paddingBottom="@dimen/margin_30"
+	    android:paddingLeft="@dimen/margin_250"
+	    android:paddingRight="@dimen/margin_250"
+	    android:paddingTop="@dimen/margin_0" >
+        <Button
+	        android:text="@string/delete_project_button"
+	        android:id="@+id/button_delete"
+	        android:background="@drawable/btn_yellow"
+	        style="@style/ButtonText"
+	        android:onClick="btnDeleteOnClick" />
+    </FrameLayout>
     
 </LinearLayout>

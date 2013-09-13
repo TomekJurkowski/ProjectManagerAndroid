@@ -19,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projectmanager.database.ProjectManagerDatabaseAdapter;
@@ -30,6 +31,10 @@ public class NewMilestoneActivity extends Activity {
 	private DatePicker endDate;
 	private EditText name;
 	private EditText description;
+	private TextView startTitle;
+	private TextView endTitle;
+	
+	private String boundary;
 	
 	private Project project;
 	private ProjectManagerDatabaseAdapter projectManagerDbAdapter;
@@ -46,6 +51,8 @@ public class NewMilestoneActivity extends Activity {
 		startDate = (DatePicker) findViewById(R.id.new_milestone_start);
 		endDate = (DatePicker) findViewById(R.id.new_milestone_end);
 		phaseSpinner = (Spinner) findViewById(R.id.spinner_phase);
+		startTitle = (TextView) findViewById(R.id.new_milestone_start_title);
+		endTitle = (TextView) findViewById(R.id.new_milestone_end_title);
 		
 		// Creating adapter for spinner
         ArrayAdapter<CharSequence> dataAdapter = ArrayAdapter.createFromResource(
@@ -62,6 +69,10 @@ public class NewMilestoneActivity extends Activity {
         
 		Bundle b = getIntent().getExtras();
 		long value = b.getLong("project_id");
+		boundary = b.getString("boundary");
+		
+		startTitle.setText("Start Date\n(must be within " + boundary + "):");
+		endTitle.setText("Start Date\n(must be within " + boundary + "):");
 		
 	    project = projectManagerDbAdapter.getProject(value);
 	    if (project == null) {
@@ -99,23 +110,23 @@ public class NewMilestoneActivity extends Activity {
 	    cal.set(Calendar.DAY_OF_MONTH, endDate.getDayOfMonth());
 	    Date end = cal.getTime();
 		
-	    if (project.getStart() > startDate.getCalendarView().getDate()
-				|| project.getEnd() < endDate.getCalendarView().getDate()) {
-			LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
-		    View popupView = layoutInflater.inflate(R.layout.date_out_of_range_popup_m, null);  
-		    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-		    Button btnOk = (Button) popupView.findViewById(R.id.dismiss);
-	    	btnOk.setOnClickListener(new Button.OnClickListener() {
-	    		@Override
-	    		public void onClick(View v) {
-	    			popupWindow.dismiss();
-	    		}
-	    	});
-
-		    popupWindow.setFocusable(true);
-	    	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
-		} else if (start.equals(end)) {
+//	    if (project.getStart() > startDate.getCalendarView().getDate()
+//				|| project.getEnd() < endDate.getCalendarView().getDate()) {
+//			LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
+//		    View popupView = layoutInflater.inflate(R.layout.date_out_of_range_popup_m, null);
+//		    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+//
+//		    Button btnOk = (Button) popupView.findViewById(R.id.dismiss);
+//	    	btnOk.setOnClickListener(new Button.OnClickListener() {
+//	    		@Override
+//	    		public void onClick(View v) {
+//	    			popupWindow.dismiss();
+//	    		}
+//	    	});
+//
+//		    popupWindow.setFocusable(true);
+//	    	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+/*		} else */if (start.equals(end)) {
 			LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
 		    View popupView = layoutInflater.inflate(R.layout.equal_date_popup_m, null);  
 		    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
