@@ -75,6 +75,10 @@
     <string name="new_project_phase">Phase of the Project:</string>
     <string name="new_milestone_name">Milestone Name:</string>
     <string name="new_milestone_phase">Phase of the Milestone:</string>
+    <string name="new_task_name">Task Name:</string>
+    <string name="new_task_phase">Phase of the Task:</string>
+    <string name="new_task_priority">Priority:</string>
+    <string name="new_task_est_time">Estimated time (hours):</string>
     
     <string name="phase_prompt">Choose the phase of your Project</string>
     <string-array name="phases">
@@ -88,10 +92,17 @@
     <string name="correct_dates">New project has been created.\nYou can find it in \'Current Project\' panel.</string>
     <string name="incorrect_dates">The start date of the project cannot be subsequent to the end date of your project. Fix that to create you project.</string>
 	<string name="equal_dates">The start date is the same as the end date. Are you sure you can finish your project in one day?</string>
+    <string name="correct_dates_m">New milestone has been created.</string>
     <string name="incorrect_dates_m">The start date of the milestone cannot be subsequent to the end date of your milestone. Fix that to create this milestone.</string>
 	<string name="equal_dates_m">The start date is the same as the end date. Are you sure you can finish that milestone in one day?</string>
     <string name="date_out_of_range_m">The milestone\'s start and end date shouldn\'t go beyond the project\'s boundaries.</string>
-		
+    <string name="correct_dates_t">New task has been created.</string>
+    <string name="incorrect_dates_t">The start date of the task cannot be subsequent to the end date of your task. Fix that to create this task.</string>
+	<string name="equal_dates_t">The start date is the same as the end date. Are you sure you can finish that task in one day?</string>
+    <string name="date_out_of_range_t">The task\'s start and end date shouldn\'t go beyond the milestone\'s boundaries.</string>
+    <string name="negative_est_time">Estimated time cannot be a negative number - pick a positive number for this field.</string>
+    
+    
 	<string name="ok">OK</string>
 	<string name="yes">Yes</string>
 	<string name="no">No</string>

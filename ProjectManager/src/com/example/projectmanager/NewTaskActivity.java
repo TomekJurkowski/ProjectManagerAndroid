@@ -21,9 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projectmanager.database.ProjectManagerDatabaseAdapter;
-import com.example.projectmanager.models.Project;
+import com.example.projectmanager.models.Milestone;
 
-public class NewMilestoneActivity extends Activity {
+public class NewTaskActivity extends Activity {
 	private Spinner phaseSpinner;
 	private DatePicker startDate;
 	private DatePicker endDate;
@@ -31,26 +31,30 @@ public class NewMilestoneActivity extends Activity {
 	private EditText description;
 	private TextView startTitle;
 	private TextView endTitle;
+	private TextView priority;
+	private TextView estimatedTime;
 	
 	private String boundary;
 	
-	private Project project;
+	private Milestone milestone;
 	private ProjectManagerDatabaseAdapter projectManagerDbAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_milestone);
+		setContentView(R.layout.activity_new_task);
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-		name = (EditText) findViewById(R.id.new_milestone_name);
-		description = (EditText) findViewById(R.id.new_milestone_description);		
-		startDate = (DatePicker) findViewById(R.id.new_milestone_start);
-		endDate = (DatePicker) findViewById(R.id.new_milestone_end);
+		name = (EditText) findViewById(R.id.new_task_name);
+		description = (EditText) findViewById(R.id.new_task_description);		
+		startDate = (DatePicker) findViewById(R.id.new_task_start);
+		endDate = (DatePicker) findViewById(R.id.new_task_end);
 		phaseSpinner = (Spinner) findViewById(R.id.spinner_phase);
-		startTitle = (TextView) findViewById(R.id.new_milestone_start_title);
-		endTitle = (TextView) findViewById(R.id.new_milestone_end_title);
+		startTitle = (TextView) findViewById(R.id.new_task_start_title);
+		endTitle = (TextView) findViewById(R.id.new_task_end_title);
+		priority = (TextView) findViewById(R.id.new_task_priority);
+		estimatedTime = (TextView) findViewById(R.id.new_task_estimated_time);		
 		
 		// Creating adapter for spinner
         ArrayAdapter<CharSequence> dataAdapter = ArrayAdapter.createFromResource(
@@ -66,25 +70,26 @@ public class NewMilestoneActivity extends Activity {
 	    projectManagerDbAdapter.open();
         
 		Bundle b = getIntent().getExtras();
-		long value = b.getLong("project_id");
+		long value = b.getLong("milestone_id");
 		boundary = b.getString("boundary");
 		
 		startTitle.setText("Start Date\n(must be within " + boundary + "):");
 		endTitle.setText("Start Date\n(must be within " + boundary + "):");
 		
-	    project = projectManagerDbAdapter.getProject(value);
-	    if (project == null) {
+	    milestone = projectManagerDbAdapter.getMilestone(value);
+	    if (milestone == null) {
 			Toast.makeText(this, R.string.db_error, Toast.LENGTH_LONG).show();
 			projectManagerDbAdapter.close();
 			finish();
 	    }
 	}
-
-	public void closeAndCreateMilestone() {
-	    projectManagerDbAdapter.insertMilestone(name.getText().toString(), description.getText().toString(),
+	
+	public void closeAndCreateTask() {
+	    projectManagerDbAdapter.insertTask(name.getText().toString(), description.getText().toString(),
 	    		startDate.getCalendarView().getDate(), endDate.getCalendarView().getDate(),
-	    		phaseSpinner.getSelectedItem().toString(), project.getId());
-		Toast.makeText(this, R.string.correct_dates_m, Toast.LENGTH_LONG).show();			
+	    		phaseSpinner.getSelectedItem().toString(), Integer.parseInt(priority.toString()),
+	    		Integer.parseInt(estimatedTime.toString()), milestone.getId());
+		Toast.makeText(this, R.string.correct_dates_t, Toast.LENGTH_LONG).show();			
 		projectManagerDbAdapter.close();
 		Intent returnIntent = new Intent();
 		setResult(RESULT_OK, returnIntent);
@@ -94,7 +99,7 @@ public class NewMilestoneActivity extends Activity {
 	/**
 	 * Function that verifies the data chosen by the user. It can either show a pop-up
 	 * window with an information that some data are incorrect or (if all the data are
-	 * proper) it will finish this activity and create the new milestone.
+	 * proper) it will finish this activity and create the new task.
 	 */	
 	public void btnCreateNewMilestoneOnClick(View v) {
 	    Calendar calStart = Calendar.getInstance();
@@ -111,7 +116,7 @@ public class NewMilestoneActivity extends Activity {
 		
 	    if (isBeyondBoundaries(calStart, calEnd)) {
 			LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
-		    View popupView = layoutInflater.inflate(R.layout.date_out_of_range_popup_m, null);
+		    View popupView = layoutInflater.inflate(R.layout.date_out_of_range_popup_t, null);
 		    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
 		    Button btnOk = (Button) popupView.findViewById(R.id.dismiss);
@@ -126,7 +131,7 @@ public class NewMilestoneActivity extends Activity {
 	    	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
     	} else if (start.equals(end)) {
 			LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
-		    View popupView = layoutInflater.inflate(R.layout.equal_date_popup_m, null);  
+		    View popupView = layoutInflater.inflate(R.layout.equal_date_popup_t, null);  
 		    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
 		    Button btnYes = (Button) popupView.findViewById(R.id.yes);
@@ -134,7 +139,7 @@ public class NewMilestoneActivity extends Activity {
 	    		@Override
 	    		public void onClick(View v) {
 	    			popupWindow.dismiss();
-	    			closeAndCreateMilestone();
+	    			closeAndCreateTask();
 	    		}
 	    	});
 
@@ -149,10 +154,10 @@ public class NewMilestoneActivity extends Activity {
 	    	popupWindow.setFocusable(true);
 	    	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 		} else if (start.before(end)) {
-			closeAndCreateMilestone();
+			closeAndCreateTask();
 		} else {
 			LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
-		    View popupView = layoutInflater.inflate(R.layout.incorrect_date_popup_m, null);
+		    View popupView = layoutInflater.inflate(R.layout.incorrect_date_popup_t, null);
 		    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
 		    Button btnOk = (Button) popupView.findViewById(R.id.dismiss);
@@ -166,7 +171,23 @@ public class NewMilestoneActivity extends Activity {
 	    	popupWindow.setFocusable(true);
 	    	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 		}
+	    
+	    if (Integer.parseInt(estimatedTime.toString()) <= 0) {
+			LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
+		    View popupView = layoutInflater.inflate(R.layout.negative_est_time, null);
+		    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
+		    Button btnOk = (Button) popupView.findViewById(R.id.dismiss);
+	    	btnOk.setOnClickListener(new Button.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    			popupWindow.dismiss();
+	    		}
+	    	});
+
+	    	popupWindow.setFocusable(true);
+	    	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+	    }
 	}
 	
 	/**
@@ -184,40 +205,40 @@ public class NewMilestoneActivity extends Activity {
 	}
 
 	/**
-	 * Function that checks whether the date range selected by the user for the milestone doesn't
-	 * go beyond the project time boundaries.
+	 * Function that checks whether the date range selected by the user for the task doesn't
+	 * go beyond the milestone time boundaries.
 	 */
-	private boolean isBeyondBoundaries(Calendar startM, Calendar endM) {
-	    return isBeyondStartBoundaries(startM) || isBeyondEndBoundaries(endM);
+	private boolean isBeyondBoundaries(Calendar startT, Calendar endT) {
+	    return isBeyondStartBoundaries(startT) || isBeyondEndBoundaries(endT);
 	}
 	
 	/**
-	 * Function that checks whether the start date selected by the user for the milestone doesn't
-	 * go beyond the project time boundaries.
+	 * Function that checks whether the start date selected by the user for the task doesn't
+	 * go beyond the milestone time boundaries.
 	 */
-	private boolean isBeyondStartBoundaries(Calendar startM) {
-	    Calendar startP = Calendar.getInstance();
-	    startP.setTime(new Date(project.getStart()));
+	private boolean isBeyondStartBoundaries(Calendar startT) {
+	    Calendar startM = Calendar.getInstance();
+	    startM.setTime(new Date(milestone.getStart()));
 	    
-	    if (startP.get(Calendar.YEAR) > startM.get(Calendar.YEAR)) {
+	    if (startM.get(Calendar.YEAR) > startT.get(Calendar.YEAR)) {
 	    	return true;
-	    } else if (startP.get(Calendar.YEAR) < startM.get(Calendar.YEAR)) {
+	    } else if (startM.get(Calendar.YEAR) < startT.get(Calendar.YEAR)) {
 	    	return false;
 	    }
 	    
-	    // startP.get(Calendar.YEAR) == startM.get(Calendar.YEAR)
+	    // startM.get(Calendar.YEAR) == startT.get(Calendar.YEAR)
 	    
-	    if (startP.get(Calendar.MONTH) > startM.get(Calendar.MONTH)) {
+	    if (startM.get(Calendar.MONTH) > startT.get(Calendar.MONTH)) {
 	    	return true;
-	    } else if (startP.get(Calendar.MONTH) < startM.get(Calendar.MONTH)) {
+	    } else if (startM.get(Calendar.MONTH) < startT.get(Calendar.MONTH)) {
 	    	return false;
 	    }
 
-	    // startP.get(Calendar.YEAR) == startM.get(Calendar.YEAR)
-	    // && startP.get(Calendar.MONTH) == startM.get(Calendar.MONTH)
+	    // startM.get(Calendar.YEAR) == startT.get(Calendar.YEAR)
+	    // && startM.get(Calendar.MONTH) == startT.get(Calendar.MONTH)
 	    
 	    
-	    if (startP.get(Calendar.DAY_OF_MONTH) > startM.get(Calendar.DAY_OF_MONTH)) {
+	    if (startM.get(Calendar.DAY_OF_MONTH) > startT.get(Calendar.DAY_OF_MONTH)) {
 	    	return true;
 	    }
 	    
@@ -225,32 +246,32 @@ public class NewMilestoneActivity extends Activity {
 	}
 	
 	/**
-	 * Function that checks whether the end date selected by the user for the milestone doesn't
-	 * go beyond the project time boundaries.
+	 * Function that checks whether the end date selected by the user for the task doesn't
+	 * go beyond the milestone time boundaries.
 	 */
-	private boolean isBeyondEndBoundaries(Calendar endM) {
-	    Calendar endP = Calendar.getInstance();
-	    endP.setTime(new Date(project.getEnd()));
+	private boolean isBeyondEndBoundaries(Calendar endT) {
+	    Calendar endM = Calendar.getInstance();
+	    endM.setTime(new Date(milestone.getEnd()));
 	
-	    if (endP.get(Calendar.YEAR) < endM.get(Calendar.YEAR)) {
+	    if (endM.get(Calendar.YEAR) < endT.get(Calendar.YEAR)) {
 	    	return true;
-	    } else if (endP.get(Calendar.YEAR) > endM.get(Calendar.YEAR)) {
+	    } else if (endM.get(Calendar.YEAR) > endT.get(Calendar.YEAR)) {
 	    	return false;
 	    }
 	    
-	    // endP.get(Calendar.YEAR) == endM.get(Calendar.YEAR)
+	    // endM.get(Calendar.YEAR) == endT.get(Calendar.YEAR)
 	    
-	    if (endP.get(Calendar.MONTH) < endM.get(Calendar.MONTH)) {
+	    if (endM.get(Calendar.MONTH) < endT.get(Calendar.MONTH)) {
 	    	return true;
-	    } else if (endP.get(Calendar.MONTH) > endM.get(Calendar.MONTH)) {
+	    } else if (endM.get(Calendar.MONTH) > endT.get(Calendar.MONTH)) {
 	    	return false;
 	    }
 
-	    // endP.get(Calendar.YEAR) == endM.get(Calendar.YEAR)
-	    // && endP.get(Calendar.MONTH) == endM.get(Calendar.MONTH)
+	    // endM.get(Calendar.YEAR) == endT.get(Calendar.YEAR)
+	    // && endM.get(Calendar.MONTH) == endT.get(Calendar.MONTH)
 	    
 	    
-	    if (endP.get(Calendar.DAY_OF_MONTH) < endM.get(Calendar.DAY_OF_MONTH)) {
+	    if (endM.get(Calendar.DAY_OF_MONTH) < endT.get(Calendar.DAY_OF_MONTH)) {
 	    	return true;
 	    }
 

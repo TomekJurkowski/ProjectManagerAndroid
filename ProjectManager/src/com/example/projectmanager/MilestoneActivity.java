@@ -125,12 +125,12 @@ public class MilestoneActivity extends Activity {
 	 * Function that starts a new Activity to insert a new Task into the milestone.
 	 */	
 	public void btnAddTaskOnClick(View v) {
-//        Intent intent = new Intent(getApplicationContext(), NewTaskActivity.class);
-//        Bundle b = new Bundle();
-//        b.putLong("milestone_id", milestone.getId());
-//        b.putString("boundary", start + " - " + end);
-//        intent.putExtras(b);
-//        startActivityForResult(intent, REQUEST_CODE);
+        Intent intent = new Intent(getApplicationContext(), NewTaskActivity.class);
+        Bundle b = new Bundle();
+        b.putLong("milestone_id", milestone.getId());
+        b.putString("boundary", start + " - " + end);
+        intent.putExtras(b);
+        startActivityForResult(intent, REQUEST_CODE);
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

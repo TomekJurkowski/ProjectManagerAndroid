@@ -62,21 +62,21 @@ public final class R {
         public static final int wallpaper=0x7f02000a;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a002f;
-        public static final int button=0x7f0a0023;
+        public static final int action_settings=0x7f0a0037;
+        public static final int button=0x7f0a002b;
         public static final int button_add_milestone=0x7f0a0008;
         public static final int button_add_task=0x7f0a0006;
-        public static final int button_clear_current=0x7f0a0025;
-        public static final int button_clear_history=0x7f0a0024;
+        public static final int button_clear_current=0x7f0a002d;
+        public static final int button_clear_history=0x7f0a002c;
         public static final int button_delete=0x7f0a0007;
-        public static final int button_move_to_history=0x7f0a001c;
+        public static final int button_move_to_history=0x7f0a0024;
         public static final int button_new=0x7f0a0010;
-        public static final int dismiss=0x7f0a001f;
+        public static final int dismiss=0x7f0a0027;
         public static final int framed_button=0x7f0a0012;
-        public static final int lvMilestones=0x7f0a001b;
+        public static final int lvMilestones=0x7f0a0023;
         public static final int lvTasks=0x7f0a0005;
         public static final int milestoneDate=0x7f0a0003;
-        public static final int milestoneDates=0x7f0a0026;
+        public static final int milestoneDates=0x7f0a002e;
         public static final int milestoneDescription=0x7f0a0002;
         public static final int milestoneName=0x7f0a0001;
         public static final int milestonePhase=0x7f0a0004;
@@ -91,45 +91,58 @@ public final class R {
         public static final int new_project_end=0x7f0a0016;
         public static final int new_project_name=0x7f0a0013;
         public static final int new_project_start=0x7f0a0015;
-        public static final int no=0x7f0a001e;
+        public static final int new_task_description=0x7f0a0018;
+        public static final int new_task_end=0x7f0a001c;
+        public static final int new_task_end_title=0x7f0a001b;
+        public static final int new_task_estimated_time=0x7f0a001e;
+        public static final int new_task_name=0x7f0a0017;
+        public static final int new_task_priority=0x7f0a001d;
+        public static final int new_task_start=0x7f0a001a;
+        public static final int new_task_start_title=0x7f0a0019;
+        public static final int no=0x7f0a0026;
         public static final int pager=0x7f0a0000;
-        public static final int projectDate=0x7f0a0019;
-        public static final int projectDates=0x7f0a0027;
-        public static final int projectDescription=0x7f0a0018;
-        public static final int projectName=0x7f0a0017;
-        public static final int projectPhase=0x7f0a001a;
-        public static final int section_label=0x7f0a0020;
-        public static final int section_text=0x7f0a0021;
-        public static final int section_text_guidelines=0x7f0a0022;
-        public static final int spinnerTarget=0x7f0a0028;
+        public static final int projectDate=0x7f0a0021;
+        public static final int projectDates=0x7f0a002f;
+        public static final int projectDescription=0x7f0a0020;
+        public static final int projectName=0x7f0a001f;
+        public static final int projectPhase=0x7f0a0022;
+        public static final int section_label=0x7f0a0028;
+        public static final int section_text=0x7f0a0029;
+        public static final int section_text_guidelines=0x7f0a002a;
+        public static final int spinnerTarget=0x7f0a0030;
         public static final int spinner_phase=0x7f0a000f;
-        public static final int taskDates=0x7f0a002b;
-        public static final int taskDescription=0x7f0a002a;
-        public static final int taskEstimatedTime=0x7f0a002c;
-        public static final int taskName=0x7f0a0029;
-        public static final int taskPhase=0x7f0a002e;
-        public static final int taskPriority=0x7f0a002d;
-        public static final int yes=0x7f0a001d;
+        public static final int taskDates=0x7f0a0033;
+        public static final int taskDescription=0x7f0a0032;
+        public static final int taskEstimatedTime=0x7f0a0034;
+        public static final int taskName=0x7f0a0031;
+        public static final int taskPhase=0x7f0a0036;
+        public static final int taskPriority=0x7f0a0035;
+        public static final int yes=0x7f0a0025;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int activity_milestone=0x7f030001;
         public static final int activity_new_milestone=0x7f030002;
         public static final int activity_new_project=0x7f030003;
-        public static final int activity_project=0x7f030004;
-        public static final int are_you_sure_popup=0x7f030005;
-        public static final int date_out_of_range_popup_m=0x7f030006;
-        public static final int equal_date_popup=0x7f030007;
-        public static final int equal_date_popup_m=0x7f030008;
-        public static final int fragment_main_description=0x7f030009;
-        public static final int fragment_main_info=0x7f03000a;
-        public static final int fragment_main_menu=0x7f03000b;
-        public static final int incorrect_date_popup=0x7f03000c;
-        public static final int incorrect_date_popup_m=0x7f03000d;
-        public static final int milestone_list_item=0x7f03000e;
-        public static final int project_list_item=0x7f03000f;
-        public static final int spinner_layout=0x7f030010;
-        public static final int task_list_item=0x7f030011;
+        public static final int activity_new_task=0x7f030004;
+        public static final int activity_project=0x7f030005;
+        public static final int are_you_sure_popup=0x7f030006;
+        public static final int date_out_of_range_popup_m=0x7f030007;
+        public static final int date_out_of_range_popup_t=0x7f030008;
+        public static final int equal_date_popup=0x7f030009;
+        public static final int equal_date_popup_m=0x7f03000a;
+        public static final int equal_date_popup_t=0x7f03000b;
+        public static final int fragment_main_description=0x7f03000c;
+        public static final int fragment_main_info=0x7f03000d;
+        public static final int fragment_main_menu=0x7f03000e;
+        public static final int incorrect_date_popup=0x7f03000f;
+        public static final int incorrect_date_popup_m=0x7f030010;
+        public static final int incorrect_date_popup_t=0x7f030011;
+        public static final int milestone_list_item=0x7f030012;
+        public static final int negative_est_time=0x7f030013;
+        public static final int project_list_item=0x7f030014;
+        public static final int spinner_layout=0x7f030015;
+        public static final int task_list_item=0x7f030016;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -138,35 +151,41 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
-        public static final int add_milestone_btn=0x7f050029;
-        public static final int add_milestone_button=0x7f050027;
-        public static final int add_task_btn=0x7f05002a;
-        public static final int add_task_button=0x7f050028;
+        public static final int add_milestone_btn=0x7f050033;
+        public static final int add_milestone_button=0x7f050031;
+        public static final int add_task_btn=0x7f050034;
+        public static final int add_task_button=0x7f050032;
         /**  Strings used as titles of Activities or Fragments. 
          */
         public static final int app_name=0x7f050000;
         public static final int are_you_sure=0x7f050014;
         public static final int clear_current_button=0x7f050011;
         public static final int clear_history_button=0x7f050010;
-        public static final int correct_dates=0x7f05001d;
-        public static final int date_out_of_range_m=0x7f050022;
-        public static final int db_error=0x7f05002d;
+        public static final int correct_dates=0x7f050021;
+        public static final int correct_dates_m=0x7f050024;
+        public static final int correct_dates_t=0x7f050028;
+        public static final int date_out_of_range_m=0x7f050027;
+        public static final int date_out_of_range_t=0x7f05002b;
+        public static final int db_error=0x7f050037;
         public static final int delete_icon=0x7f050013;
-        public static final int delete_milestone_button=0x7f05002c;
-        public static final int delete_project_button=0x7f05002b;
-        public static final int equal_dates=0x7f05001f;
-        public static final int equal_dates_m=0x7f050021;
+        public static final int delete_milestone_button=0x7f050036;
+        public static final int delete_project_button=0x7f050035;
+        public static final int equal_dates=0x7f050023;
+        public static final int equal_dates_m=0x7f050026;
+        public static final int equal_dates_t=0x7f05002a;
         public static final int ic_yellow=0x7f05000e;
-        public static final int incorrect_dates=0x7f05001e;
-        public static final int incorrect_dates_m=0x7f050020;
+        public static final int incorrect_dates=0x7f050022;
+        public static final int incorrect_dates_m=0x7f050025;
+        public static final int incorrect_dates_t=0x7f050029;
         /**  Strings for activity com.example.projectmanager.MainActivity. 
          */
         public static final int menu_title=0x7f05000d;
         public static final int milestone=0x7f050005;
-        public static final int milestone_deleted=0x7f050030;
+        public static final int milestone_deleted=0x7f05003a;
         /**  Strings for activities ProjectActivity, MilestoneActivity, NewMilestoneActivity. 
          */
-        public static final int move_to_history_button=0x7f050026;
+        public static final int move_to_history_button=0x7f050030;
+        public static final int negative_est_time=0x7f05002c;
         public static final int new_button=0x7f05000f;
         public static final int new_description=0x7f050016;
         public static final int new_end_date=0x7f050018;
@@ -180,12 +199,16 @@ public final class R {
         public static final int new_project_phase=0x7f050019;
         public static final int new_start_date=0x7f050017;
         public static final int new_task=0x7f050006;
-        public static final int no=0x7f050025;
-        public static final int ok=0x7f050023;
-        public static final int phase_prompt=0x7f05001c;
+        public static final int new_task_est_time=0x7f05001f;
+        public static final int new_task_name=0x7f05001c;
+        public static final int new_task_phase=0x7f05001d;
+        public static final int new_task_priority=0x7f05001e;
+        public static final int no=0x7f05002f;
+        public static final int ok=0x7f05002d;
+        public static final int phase_prompt=0x7f050020;
         public static final int project=0x7f050003;
-        public static final int project_deleted=0x7f05002f;
-        public static final int project_moved_to_history=0x7f05002e;
+        public static final int project_deleted=0x7f050039;
+        public static final int project_moved_to_history=0x7f050038;
         public static final int rate_app_button=0x7f050012;
         public static final int task=0x7f050007;
         public static final int title_section1=0x7f050008;
@@ -193,7 +216,7 @@ public final class R {
         public static final int title_section3=0x7f05000a;
         public static final int title_section4=0x7f05000b;
         public static final int title_section5=0x7f05000c;
-        public static final int yes=0x7f050024;
+        public static final int yes=0x7f05002e;
     }
     public static final class style {
         /** 
