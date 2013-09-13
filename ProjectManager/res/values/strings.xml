@@ -103,10 +103,12 @@
     <string name="add_milestone_btn">Add Milestone</string>
     <string name="add_task_btn">Add Task</string>
     <string name="delete_project_button">Delete Project</string>
+    <string name="delete_milestone_button">Delete Milestone</string>
 	
 	<string name="db_error">Database Error - please report this issue.</string>
 	<string name="project_moved_to_history">Your project has been moved to History.</string>
 	<string name="project_deleted">Your project has been deleted.</string>
+	<string name="milestone_deleted">Milestone has been deleted.</string>
 	
 	
 </resources>

@@ -421,16 +421,6 @@ public class MainActivity extends FragmentActivity implements
 		    }
 		}		
 
-		/**
-		 * Function basically responsible for updating the content of ListView lvCurrentProjects.
-		 */
-		@SuppressWarnings("deprecation")
-		public void updateCurrentListViewData() {
-		    projectCurrentCursor.requery();
-		    updateCurrentProjectList();
-		    listCurrentAdapter.notifyDataSetChanged();
-		}
-
 		@Override
 		public void onListItemClick(ListView l, View v, int position, long id) {
 	        Intent intent = new Intent(parentActivity.getApplicationContext(), ProjectActivity.class);
@@ -515,22 +505,10 @@ public class MainActivity extends FragmentActivity implements
 		        } while(projectHistoryCursor.moveToNext());
 		    }
 		}
-
-		/**
-		 * Function basically responsible for updating the content of ListView lvHistoryProjects.
-		 */
-		@SuppressWarnings("deprecation")
-		private void updateHistoryListViewData() {
-		    projectHistoryCursor.requery();
-		    updateHistoryProjectList();
-		    listHistoryAdapter.notifyDataSetChanged();
-		}
 		
 		@Override
 		public void onListItemClick(ListView l, View v, int position, long id) {
             Toast.makeText(parentActivity, "You've just touched a history project;)", Toast.LENGTH_SHORT).show();
-            updateHistoryListViewData();
-	
 		}
 	}
 	

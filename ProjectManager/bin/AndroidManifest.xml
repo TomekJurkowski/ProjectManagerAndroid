@@ -52,7 +52,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.projectmanager.ProjectActivity" />
         </activity>
-        
+        <activity
+            android:name="com.example.projectmanager.MilestoneActivity"
+            android:label="@string/milestone"
+            android:parentActivityName="com.example.projectmanager.ProjectActivity"
+            android:configChanges="orientation" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.projectmanager.ProjectActivity" />
+        </activity>        
     </application>
 
 </manifest>
