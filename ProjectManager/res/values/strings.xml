@@ -95,11 +95,11 @@
     <string name="correct_dates_m">New milestone has been created.</string>
     <string name="incorrect_dates_m">The start date of the milestone cannot be subsequent to the end date of your milestone. Fix that to create this milestone.</string>
 	<string name="equal_dates_m">The start date is the same as the end date. Are you sure you can finish that milestone in one day?</string>
-    <string name="date_out_of_range_m">The milestone\'s start and end date shouldn\'t go beyond the project\'s boundaries.</string>
+    <string name="date_out_of_range_m">The milestone\'s start and end dates shouldn\'t go beyond the project\'s boundaries.</string>
     <string name="correct_dates_t">New task has been created.</string>
     <string name="incorrect_dates_t">The start date of the task cannot be subsequent to the end date of your task. Fix that to create this task.</string>
 	<string name="equal_dates_t">The start date is the same as the end date. Are you sure you can finish that task in one day?</string>
-    <string name="date_out_of_range_t">The task\'s start and end date shouldn\'t go beyond the milestone\'s boundaries.</string>
+    <string name="date_out_of_range_t">The task\'s start and end dates shouldn\'t go beyond the milestone\'s boundaries.</string>
     <string name="negative_est_time">Estimated time cannot be a negative number - pick a positive number for this field.</string>
     
     

@@ -11,5 +11,6 @@
     <dimen name="margin_50">50dp</dimen>
     <dimen name="margin_200">200dp</dimen>
     <dimen name="margin_250">250dp</dimen>
+    <dimen name="margin_450">450dp</dimen>
 
 </resources>

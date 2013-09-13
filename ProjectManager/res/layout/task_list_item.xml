@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="0dp"
 	    android:layout_height="match_parent"
-	    android:layout_weight="4"
+	    android:layout_weight="6"
 	    android:orientation="vertical" >
     
 	    <TextView
@@ -33,7 +33,7 @@
     <LinearLayout
         android:layout_width="0dp"
 	    android:layout_height="match_parent"
-	    android:layout_weight="1"
+	    android:layout_weight="5"
 	    android:orientation="vertical" >
     
 	    <TextView
@@ -43,20 +43,20 @@
 		    android:gravity="center_horizontal"
 		    android:layout_gravity="center_horizontal"
 	        android:textAppearance="?android:attr/textAppearanceMedium" />
-	    <TextView
-	        android:id="@+id/taskEstimatedTime"
+   	    <TextView
+	        android:id="@+id/taskPhase"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 		    android:gravity="center_horizontal"
 		    android:layout_gravity="center_horizontal"
-	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	        android:textAppearance="?android:attr/textAppearanceMedium" />	    
 	    
     </LinearLayout>
     
     <LinearLayout
         android:layout_width="0dp"
 	    android:layout_height="match_parent"
-	    android:layout_weight="1"
+	    android:layout_weight="5"
 	    android:orientation="vertical" >
     
 	    <TextView
@@ -67,7 +67,7 @@
 		    android:layout_gravity="center_horizontal"
 	        android:textAppearance="?android:attr/textAppearanceMedium" />
 	    <TextView
-	        android:id="@+id/taskPhase"
+	        android:id="@+id/taskEstimatedTime"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 		    android:gravity="center_horizontal"

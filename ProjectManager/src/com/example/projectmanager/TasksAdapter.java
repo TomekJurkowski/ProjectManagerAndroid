@@ -1,15 +1,16 @@
 package com.example.projectmanager;
 
-import com.example.projectmanager.models.Task;
-import android.app.Activity;
-
 import java.util.Calendar;
 import java.util.List;
+
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.example.projectmanager.models.Task;
 
 public class TasksAdapter extends ArrayAdapter<Task> {
     private Activity context;
@@ -57,9 +58,9 @@ public class TasksAdapter extends ArrayAdapter<Task> {
             viewHolder.taskName = (TextView) rowView.findViewById(R.id.taskName);
             viewHolder.taskDescription = (TextView) rowView.findViewById(R.id.taskDescription);
             viewHolder.taskDates = (TextView) rowView.findViewById(R.id.taskDates);
-            viewHolder.taskEstimatedTime = (TextView) rowView.findViewById(R.id.taskEstimatedTime);
-            viewHolder.taskPriority = (TextView) rowView.findViewById(R.id.taskPriority);
             viewHolder.taskPhase = (TextView) rowView.findViewById(R.id.taskPhase);
+            viewHolder.taskPriority = (TextView) rowView.findViewById(R.id.taskPriority);
+            viewHolder.taskEstimatedTime = (TextView) rowView.findViewById(R.id.taskEstimatedTime);
             rowView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) rowView.getTag();
@@ -67,8 +68,8 @@ public class TasksAdapter extends ArrayAdapter<Task> {
         Task task = tasks.get(position);
         viewHolder.taskName.setText(task.getName());
         viewHolder.taskDescription.setText(task.getDescription());
-        viewHolder.taskEstimatedTime.setText(task.getEstimatedTime());
-        viewHolder.taskPriority.setText(task.getPriority());
+        viewHolder.taskEstimatedTime.setText("Estimated time (hours): " + task.getEstimatedTime());
+        viewHolder.taskPriority.setText("Priority: " + task.getPriority());
         viewHolder.taskPhase.setText(task.getPhase());
         
         String start = milisecondsToDate(task.getStart());

@@ -35,7 +35,7 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f040009;
+        public static final int activity_horizontal_margin=0x7f04000a;
         public static final int margin_0=0x7f040002;
         public static final int margin_100=0x7f040005;
         public static final int margin_15=0x7f040004;
@@ -46,6 +46,7 @@ public final class R {
         public static final int margin_250=0x7f040008;
         public static final int margin_30=0x7f040001;
         public static final int margin_300=0x7f040003;
+        public static final int margin_450=0x7f040009;
         public static final int margin_50=0x7f040006;
     }
     public static final class drawable {
@@ -113,9 +114,9 @@ public final class R {
         public static final int spinner_phase=0x7f0a000f;
         public static final int taskDates=0x7f0a0033;
         public static final int taskDescription=0x7f0a0032;
-        public static final int taskEstimatedTime=0x7f0a0034;
+        public static final int taskEstimatedTime=0x7f0a0036;
         public static final int taskName=0x7f0a0031;
-        public static final int taskPhase=0x7f0a0036;
+        public static final int taskPhase=0x7f0a0034;
         public static final int taskPriority=0x7f0a0035;
         public static final int yes=0x7f0a0025;
     }

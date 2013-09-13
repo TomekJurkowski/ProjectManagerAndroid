@@ -31,8 +31,8 @@ public class NewTaskActivity extends Activity {
 	private EditText description;
 	private TextView startTitle;
 	private TextView endTitle;
-	private TextView priority;
-	private TextView estimatedTime;
+	private EditText priority;
+	private EditText estimatedTime;
 	
 	private String boundary;
 	
@@ -53,8 +53,8 @@ public class NewTaskActivity extends Activity {
 		phaseSpinner = (Spinner) findViewById(R.id.spinner_phase);
 		startTitle = (TextView) findViewById(R.id.new_task_start_title);
 		endTitle = (TextView) findViewById(R.id.new_task_end_title);
-		priority = (TextView) findViewById(R.id.new_task_priority);
-		estimatedTime = (TextView) findViewById(R.id.new_task_estimated_time);		
+		priority = (EditText) findViewById(R.id.new_task_priority);
+		estimatedTime = (EditText) findViewById(R.id.new_task_estimated_time);		
 		
 		// Creating adapter for spinner
         ArrayAdapter<CharSequence> dataAdapter = ArrayAdapter.createFromResource(
@@ -74,7 +74,7 @@ public class NewTaskActivity extends Activity {
 		boundary = b.getString("boundary");
 		
 		startTitle.setText("Start Date\n(must be within " + boundary + "):");
-		endTitle.setText("Start Date\n(must be within " + boundary + "):");
+		endTitle.setText("End Date\n(must be within " + boundary + "):");
 		
 	    milestone = projectManagerDbAdapter.getMilestone(value);
 	    if (milestone == null) {
@@ -87,8 +87,8 @@ public class NewTaskActivity extends Activity {
 	public void closeAndCreateTask() {
 	    projectManagerDbAdapter.insertTask(name.getText().toString(), description.getText().toString(),
 	    		startDate.getCalendarView().getDate(), endDate.getCalendarView().getDate(),
-	    		phaseSpinner.getSelectedItem().toString(), Integer.parseInt(priority.toString()),
-	    		Integer.parseInt(estimatedTime.toString()), milestone.getId());
+	    		phaseSpinner.getSelectedItem().toString(), Integer.parseInt(priority.getText().toString()),
+	    		Integer.parseInt(estimatedTime.getText().toString()), milestone.getId());
 		Toast.makeText(this, R.string.correct_dates_t, Toast.LENGTH_LONG).show();			
 		projectManagerDbAdapter.close();
 		Intent returnIntent = new Intent();
@@ -101,7 +101,7 @@ public class NewTaskActivity extends Activity {
 	 * window with an information that some data are incorrect or (if all the data are
 	 * proper) it will finish this activity and create the new task.
 	 */	
-	public void btnCreateNewMilestoneOnClick(View v) {
+	public void btnCreateNewTaskOnClick(View v) {
 	    Calendar calStart = Calendar.getInstance();
 	    calStart.set(Calendar.YEAR, startDate.getYear());
 	    calStart.set(Calendar.MONTH, startDate.getMonth());
@@ -172,7 +172,7 @@ public class NewTaskActivity extends Activity {
 	    	popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 		}
 	    
-	    if (Integer.parseInt(estimatedTime.toString()) <= 0) {
+	    if (Integer.parseInt(estimatedTime.getText().toString()) <= 0) {
 			LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
 		    View popupView = layoutInflater.inflate(R.layout.negative_est_time, null);
 		    final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

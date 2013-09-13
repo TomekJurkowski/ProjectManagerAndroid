@@ -45,31 +45,31 @@
         <activity
             android:name="com.example.projectmanager.NewMilestoneActivity"
             android:label="@string/new_milestone"
-            android:parentActivityName="com.example.projectmanager.ProjectActivity"
+            android:parentActivityName="com.example.projectmanager.MainActivity"
             android:configChanges="orientation"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.projectmanager.ProjectActivity" />
+                android:value="com.example.projectmanager.MainActivity" />
         </activity>
         <activity
             android:name="com.example.projectmanager.MilestoneActivity"
             android:label="@string/milestone"
-            android:parentActivityName="com.example.projectmanager.ProjectActivity"
+            android:parentActivityName="com.example.projectmanager.MainActivity"
             android:configChanges="orientation" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.projectmanager.ProjectActivity" />
+                android:value="com.example.projectmanager.MainActivity" />
         </activity>
         <activity
             android:name="com.example.projectmanager.NewTaskActivity"
             android:label="@string/new_task"
-            android:parentActivityName="com.example.projectmanager.MilestoneActivity"
+            android:parentActivityName="com.example.projectmanager.MainActivity"
             android:configChanges="orientation"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.projectmanager.MilestoneActivity" />
+                android:value="com.example.projectmanager.MainActivity" />
         </activity>        
     </application>
 

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background"
+    tools:context=".NewTaskActivity" >
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+	    <Space
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1" />
+	                
+		<LinearLayout
+			android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_marginLeft="@dimen/margin_300"
+	        android:layout_marginTop="@dimen/margin_30"
+	        android:layout_marginBottom="@dimen/margin_0"
+	        android:layout_marginRight="@dimen/margin_300"
+	        android:orientation="vertical" >
+	
+			<TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="left"
+		        android:gravity="center_horizontal"
+		        android:textColor="@color/white"
+	        	android:textSize="20sp"
+	 	        android:text="@string/new_task_name" />
+			    
+		    <EditText
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:gravity="center_horizontal"
+		        android:padding="@dimen/margin_15"
+		        android:inputType="text"
+		        android:singleLine="true"
+		        android:textColor="@color/pale_yellow"
+		        android:textColorHighlight="@color/blue"
+		        android:textSize="30sp"
+	      	    android:background="@drawable/edittext_round"
+		        android:id="@+id/new_task_name" />
+	
+	    </LinearLayout>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_marginLeft="@dimen/margin_300"
+	        android:layout_marginTop="@dimen/margin_30"
+	        android:layout_marginBottom="@dimen/margin_0"
+	        android:layout_marginRight="@dimen/margin_300"
+	        android:orientation="vertical" >
+	        
+	   	    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="left"
+		        android:gravity="center_horizontal"
+		        android:textColor="@color/white"
+	        	android:textSize="20sp"
+	        	android:text="@string/new_description" />
+		
+			<EditText 
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:gravity="center_horizontal"
+		        android:padding="@dimen/margin_15"
+		        android:inputType="textMultiLine"
+		        android:singleLine="false"
+		        android:minLines="2"
+		        android:maxLines="3"
+		        android:textColor="@color/pale_yellow"
+		        android:textColorHighlight="@color/blue"
+		        android:textSize="20sp"
+		        android:background="@drawable/edittext_round"
+		        android:id="@+id/new_task_description" />
+		   	    
+	    </LinearLayout>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_marginLeft="@dimen/margin_300"
+			android:layout_marginTop="@dimen/margin_30"
+			android:layout_marginBottom="@dimen/margin_0"
+			android:layout_marginRight="@dimen/margin_300"
+			android:orientation="vertical" >
+	
+	        <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="left|center_vertical"
+		        android:textColor="@color/white"
+	        	android:textSize="20sp"
+	        	android:id="@+id/new_task_start_title" />
+		    	
+	   	    <DatePicker
+	   	        android:layout_width="wrap_content"
+	   	        android:layout_height="wrap_content"
+		        android:layout_gravity="right"
+		        android:gravity="right"
+		        android:calendarViewShown="false"
+		        android:id="@+id/new_task_start" />
+	
+	    </LinearLayout>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_marginLeft="@dimen/margin_300"
+			android:layout_marginTop="@dimen/margin_30"
+			android:layout_marginBottom="@dimen/margin_0"
+			android:layout_marginRight="@dimen/margin_300"
+			android:orientation="vertical" >
+	            
+	   	    <TextView
+		        android:layout_width="wrap_content"
+	   	        android:layout_height="wrap_content"
+		        android:layout_gravity="left|center_vertical"
+		        android:textColor="@color/white"
+	        	android:textSize="20sp"
+	        	android:id="@+id/new_task_end_title" />
+		   	    
+	   	    <DatePicker
+	   	        android:layout_width="wrap_content"
+	   	        android:layout_height="wrap_content"
+		        android:layout_gravity="right"
+		        android:gravity="right"
+		        android:calendarViewShown="false"
+		        android:id="@+id/new_task_end" />
+	
+		</LinearLayout>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_marginLeft="@dimen/margin_450"
+	        android:layout_marginTop="@dimen/margin_30"
+	        android:layout_marginBottom="@dimen/margin_0"
+	        android:layout_marginRight="@dimen/margin_450"
+	        android:orientation="vertical" >
+	
+	   	    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="left"
+		        android:gravity="center_horizontal"
+		        android:textColor="@color/white"
+	        	android:textSize="20sp"
+	        	android:text="@string/new_task_priority" />
+			<EditText 
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:gravity="center_horizontal"
+		        android:padding="@dimen/margin_15"
+		        android:singleLine="true"
+		        android:textColor="@color/pale_yellow"
+		        android:textColorHighlight="@color/blue"
+		        android:textSize="20sp"
+		        android:background="@drawable/edittext_round"
+		        android:inputType="number"
+		        android:id="@+id/new_task_priority" />
+	
+	   	    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+	   	        android:layout_gravity="left"
+	   	        android:paddingTop="@dimen/margin_30"
+		        android:gravity="center_horizontal"
+		        android:textColor="@color/white"
+	        	android:textSize="20sp"
+	        	android:text="@string/new_task_est_time" />
+			<EditText 
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+	   	        android:layout_gravity="center"
+		        android:gravity="center_horizontal"
+		        android:padding="@dimen/margin_15"
+		        android:singleLine="true"
+		        android:textColor="@color/pale_yellow"
+		        android:textColorHighlight="@color/blue"
+		        android:textSize="20sp"
+		        android:background="@drawable/edittext_round"
+		        android:inputType="number"
+		        android:id="@+id/new_task_estimated_time" />
+		   	    
+	    </LinearLayout>
+	   	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_marginLeft="@dimen/margin_450"
+			android:layout_marginTop="@dimen/margin_30"
+			android:layout_marginBottom="@dimen/margin_0"
+			android:layout_marginRight="@dimen/margin_450"
+			android:orientation="vertical" >
+	
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="left"
+				android:gravity="center_horizontal"
+				android:textColor="@color/white"
+				android:textSize="20sp"
+				android:text="@string/new_task_phase" />
+	 
+			<Spinner
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:layout_marginTop="@dimen/margin_15"
+				android:prompt="@string/phase_prompt"
+				android:gravity="center_horizontal"
+				android:id="@+id/spinner_phase" />
+	
+		</LinearLayout>
+		
+   		<FrameLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingBottom="@dimen/margin_30"
+			android:paddingLeft="@dimen/margin_450"
+			android:paddingRight="@dimen/margin_450"
+			android:paddingTop="@dimen/margin_30" >
+			<Button
+				android:text="@string/add_task_btn"
+				android:id="@+id/button_new"
+				android:background="@drawable/btn_yellow"
+				style="@style/ButtonText"
+				android:onClick="btnCreateNewTaskOnClick" />
+		</FrameLayout>
+	        
+		<Space
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1" />
+	
+	</LinearLayout>
+
+</ScrollView>
